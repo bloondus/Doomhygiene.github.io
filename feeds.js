@@ -137,7 +137,7 @@ class FeedParser {
             .trim();
         return text;
     }
-
+}
 
 async function loadFeedsForLanguage(language) {
     const sources = API_SOURCES[language] || API_SOURCES.en;
