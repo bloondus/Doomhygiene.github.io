@@ -5,6 +5,7 @@ class DoomHygieneApp {
         this.displayedArticles = 0;
         this.isLoading = false;
         this.hasMoreArticles = true;
+        this.observer = null;
         
         this.elements = {
             articlesContainer: document.getElementById('articles'),
@@ -56,10 +57,14 @@ class DoomHygieneApp {
         });
 
         // Infinite scroll
+        let scrollTimeout;
         window.addEventListener('scroll', () => {
-            if (this.shouldLoadMore()) {
-                this.renderArticles();
-            }
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (this.shouldLoadMore()) {
+                    this.renderArticles();
+                }
+            }, 100);
         });
 
         // Bookmarks panel
@@ -83,18 +88,48 @@ class DoomHygieneApp {
         if (this.isLoading) return;
         
         this.isLoading = true;
-        this.showLoader();
+        
+        // Show skeleton cards immediately
+        this.elements.articlesContainer.innerHTML = Array(6).fill(0).map(() => 
+            '<article class="article-card loading"></article>'
+        ).join('');
 
         try {
             const language = this.elements.languageSelector.value;
             const newArticles = await loadFeedsForLanguage(language);
             this.articles = newArticles;
             this.hasMoreArticles = this.articles.length > 0;
+            
+            // Clear skeleton and render real articles
+            this.elements.articlesContainer.innerHTML = '';
+            this.renderArticles();
+            
         } catch (error) {
             console.error('Error loading articles:', error);
+            this.elements.articlesContainer.innerHTML = `
+                <div style="text-align: center; padding: 3rem;">
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 1.125rem;">
+                        ${error.message === 'No articles could be loaded' 
+                            ? '❌ Failed to load articles' 
+                            : '⏱️ Loading timed out'}
+                    </p>
+                    <button onclick="location.reload()" style="
+                        padding: 0.75rem 1.5rem;
+                        background: var(--color-accent);
+                        color: white;
+                        border: none;
+                        border-radius: var(--border-radius);
+                        cursor: pointer;
+                        font-family: var(--font-sans);
+                        font-size: 1rem;
+                        transition: var(--transition);
+                    " onmouseover="this.style.background='#6b5d4f'" onmouseout="this.style.background='var(--color-accent)'">
+                        🔄 Retry
+                    </button>
+                </div>
+            `;
         } finally {
             this.isLoading = false;
-            this.hideLoader();
         }
     }
 
@@ -110,16 +145,41 @@ class DoomHygieneApp {
             this.displayedArticles + CONFIG.articlesPerLoad
         );
 
+        // Use DocumentFragment for better performance
+        const fragment = document.createDocumentFragment();
+        
         articlesToRender.forEach(article => {
             const articleElement = this.createArticleElement(article);
-            this.elements.articlesContainer.appendChild(articleElement);
+            fragment.appendChild(articleElement);
         });
 
+        this.elements.articlesContainer.appendChild(fragment);
         this.displayedArticles += articlesToRender.length;
 
         if (this.displayedArticles >= this.articles.length) {
             this.hasMoreArticles = false;
             this.showEndMessage();
+        }
+        
+        // Setup intersection observer for lazy loading
+        this.setupLazyLoading();
+    }
+    
+    setupLazyLoading() {
+        if (this.observer) return;
+        
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && this.hasMoreArticles && !this.isLoading) {
+                    this.renderArticles();
+                }
+            });
+        }, { rootMargin: '400px' });
+        
+        // Observe last article
+        const lastArticle = this.elements.articlesContainer.lastElementChild;
+        if (lastArticle && lastArticle.classList.contains('article-card')) {
+            this.observer.observe(lastArticle);
         }
     }
 
@@ -345,4 +405,17 @@ if (document.readyState === 'loading') {
     });
 } else {
     new DoomHygieneApp();
+}
+
+// Register Service Worker for offline support
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/Doomhygiene.github.io/sw.js')
+            .then(registration => {
+                console.log('✅ Service Worker registered:', registration.scope);
+            })
+            .catch(error => {
+                console.log('❌ Service Worker registration failed:', error);
+            });
+    });
 }

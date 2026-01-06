@@ -1,202 +1,138 @@
-// RSS Feed Configuration
-// Curated feeds by language and category
-
-const RSS_FEEDS = {
+// Fast JSON API Sources (no CORS issues!)
+const API_SOURCES = {
     en: [
-        // Philosophy & Essays
-        { url: 'https://feeds.aeon.co/aeon', category: 'philosophy', source: 'Aeon' },
-        { url: 'https://www.themarginalian.org/feed/', category: 'essay', source: 'The Marginalian' },
-        { url: 'https://longreads.com/feed/', category: 'culture', source: 'Longreads' },
-        
-        // Science
-        { url: 'https://www.quantamagazine.org/feed/', category: 'science', source: 'Quanta Magazine' },
-        { url: 'http://rss.sciam.com/ScientificAmerican-Global', category: 'science', source: 'Scientific American' },
-        { url: 'https://nautil.us/feed/', category: 'science', source: 'Nautilus' },
-        
-        // Technology & Culture
-        { url: 'https://www.theverge.com/rss/index.xml', category: 'technology', source: 'The Verge' },
-        { url: 'https://www.wired.com/feed/rss', category: 'technology', source: 'WIRED' },
-        { url: 'https://www.newyorker.com/feed/everything', category: 'culture', source: 'The New Yorker' },
-        
-        // Arts & History
-        { url: 'https://lithub.com/feed/', category: 'literature', source: 'Literary Hub' },
-        { url: 'https://www.theparisreview.org/blog/feed/', category: 'literature', source: 'Paris Review' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
+        { url: 'https://lobste.rs/hottest.json', type: 'lobsters', category: 'technology', source: 'Lobsters' },
+        { url: 'https://www.reddit.com/r/TrueReddit.json', type: 'reddit', category: 'culture', source: 'Reddit' },
+        { url: 'https://www.reddit.com/r/philosophy.json', type: 'reddit', category: 'philosophy', source: 'Reddit Philosophy' },
+        { url: 'https://www.reddit.com/r/science.json', type: 'reddit', category: 'science', source: 'Reddit Science' }
     ],
     
     de: [
-        // Science & Culture
-        { url: 'https://www.spektrum.de/alias/rss/spektrum-de-rss-feed/996406', category: 'science', source: 'Spektrum' },
-        { url: 'https://www.heise.de/rss/heise-atom.xml', category: 'technology', source: 'Heise' },
-        { url: 'https://www.zeit.de/index', category: 'culture', source: 'ZEIT Online' },
-        { url: 'https://www.spiegel.de/schlagzeilen/index.rss', category: 'culture', source: 'SPIEGEL' },
-        { url: 'https://www.sueddeutsche.de/news/rss', category: 'culture', source: 'Süddeutsche' },
-        
-        // Literature & Philosophy
-        { url: 'https://www.perlentaucher.de/rss/magazinrundschau.xml', category: 'literature', source: 'Perlentaucher' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
+        { url: 'https://www.reddit.com/r/de.json', type: 'reddit', category: 'culture', source: 'Reddit DE' }
     ],
     
     fr: [
-        // Culture & Science
-        { url: 'https://www.lemonde.fr/rss/une.xml', category: 'culture', source: 'Le Monde' },
-        { url: 'https://www.courrierinternational.com/feed/all/rss.xml', category: 'culture', source: 'Courrier International' },
-        { url: 'https://www.liberation.fr/arc/outboundfeeds/rss/', category: 'culture', source: 'Libération' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
+        { url: 'https://www.reddit.com/r/france.json', type: 'reddit', category: 'culture', source: 'Reddit France' }
     ],
     
     es: [
-        // Culture & Science
-        { url: 'https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada', category: 'culture', source: 'El País' },
-        { url: 'https://www.lavanguardia.com/rss/home.xml', category: 'culture', source: 'La Vanguardia' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
+        { url: 'https://www.reddit.com/r/es.json', type: 'reddit', category: 'culture', source: 'Reddit ES' }
     ],
     
     it: [
-        // Culture & Science
-        { url: 'https://www.internazionale.it/rss', category: 'culture', source: 'Internazionale' },
-        { url: 'https://www.lescienze.it/rss/all/rss2.0.xml', category: 'science', source: 'Le Scienze' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
+        { url: 'https://www.reddit.com/r/italy.json', type: 'reddit', category: 'culture', source: 'Reddit Italy' }
     ],
     
     ja: [
-        // Technology & Culture
-        { url: 'https://wired.jp/feed/', category: 'technology', source: 'WIRED Japan' },
-        { url: 'https://www3.nhk.or.jp/rss/news/cat0.xml', category: 'culture', source: 'NHK' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     ko: [
-        // Science & Culture
-        { url: 'https://www.hani.co.kr/rss/', category: 'culture', source: 'Hankyoreh' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     zh: [
-        // Culture & Technology
-        { url: 'https://cn.nytimes.com/rss.html', category: 'culture', source: 'NY Times Chinese' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ]
 };
 
-// CORS Proxy - mit Fallback-Option
-const CORS_PROXIES = [
-    'https://api.allorigins.win/raw?url=',
-    'https://corsproxy.io/?'
-];
-
-let currentProxyIndex = 0;
-
 class FeedParser {
-    constructor() {
-        this.parser = new DOMParser();
+    parseHackerNews(data, source, category) {
+        return data.map(item => ({
+            title: item.title,
+            link: item.url || `https://news.ycombinator.com/item?id=${item.id}`,
+            description: item.domain || '',
+            date: new Date(item.time * 1000).toISOString(),
+            source: source,
+            category: category,
+            id: `hn-${item.id}`,
+            points: item.points
+        }));
     }
 
-    async fetchFeed(feedUrl) {
-        // Versuche zuerst ohne Proxy
-        try {
-            const response = await fetch(feedUrl);
-            if (response.ok) {
-                const text = await response.text();
-                const xml = this.parser.parseFromString(text, 'text/xml');
-                const articles = this.parseXML(xml);
-                if (articles.length > 0) {
-                    console.log(`✓ Loaded ${articles.length} articles from ${feedUrl}`);
-                    return articles;
-                }
-            }
-        } catch (error) {
-            console.log(`Direct fetch failed for ${feedUrl}, trying with proxy...`);
-        }
-
-        // Wenn direkter Zugriff fehlschlägt, versuche mit Proxy
-        for (let i = 0; i < CORS_PROXIES.length; i++) {
-            try {
-                const proxyUrl = CORS_PROXIES[i] + encodeURIComponent(feedUrl);
-                console.log(`Trying proxy ${i + 1}/${CORS_PROXIES.length} for ${feedUrl}`);
-                
-                const response = await fetch(proxyUrl);
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                
-                const text = await response.text();
-                const xml = this.parser.parseFromString(text, 'text/xml');
-                const articles = this.parseXML(xml);
-                
-                if (articles.length > 0) {
-                    console.log(`✓ Loaded ${articles.length} articles via proxy from ${feedUrl}`);
-                    return articles;
-                }
-            } catch (error) {
-                console.error(`Proxy ${i + 1} failed for ${feedUrl}:`, error.message);
-            }
-        }
-        
-        console.error(`All attempts failed for ${feedUrl}`);
-        return [];
+    parseLobsters(data, source, category) {
+        return data.map(item => ({
+            title: item.title,
+            link: item.url,
+            description: item.description || item.tags?.join(', ') || '',
+            date: item.created_at,
+            source: source,
+            category: category,
+            id: `lobsters-${item.short_id}`,
+            points: item.score
+        }));
     }
 
-    parseXML(xml) {
-        const items = [];
-        const entries = xml.querySelectorAll('item, entry');
-
-        entries.forEach(entry => {
-            const item = {
-                title: this.getElementText(entry, 'title'),
-                link: this.getElementText(entry, 'link') || entry.querySelector('link')?.getAttribute('href'),
-                description: this.getElementText(entry, 'description, summary, content\\:encoded'),
-                date: this.getElementText(entry, 'pubDate, published, updated'),
-                author: this.getElementText(entry, 'author, dc\\:creator')
-            };
-
-            if (item.title && item.link) {
-                items.push(item);
-            }
-        });
-
-        return items;
-    }
-
-    getElementText(parent, selectors) {
-        const element = parent.querySelector(selectors);
-        return element?.textContent?.trim() || '';
-    }
-
-    cleanDescription(html) {
-        const div = document.createElement('div');
-        div.innerHTML = html;
-        const text = div.textContent || div.innerText || '';
-        return text.trim().substring(0, 300) + '...';
+    parseReddit(data, source, category) {
+        return data.data.children
+            .filter(item => item.data.url && !item.data.is_self)
+            .map(item => ({
+                title: item.data.title,
+                link: item.data.url,
+                description: item.data.selftext?.substring(0, 200) || '',
+                date: new Date(item.data.created_utc * 1000).toISOString(),
+                source: source,
+                category: category,
+                id: `reddit-${item.data.id}`,
+                points: item.data.score
+            }));
     }
 }
 
+
 async function loadFeedsForLanguage(language) {
-    const feeds = RSS_FEEDS[language] || RSS_FEEDS.en;
+    const sources = API_SOURCES[language] || API_SOURCES.en;
     const parser = new FeedParser();
     const allArticles = [];
     
-    console.log(`Loading ${feeds.length} feeds for language: ${language}`);
+    console.log(`⚡ Loading ${sources.length} sources for language: ${language}`);
+    const startTime = performance.now();
 
-    //Lade alle Feeds parallel (aber mit Limit von 3 gleichzeitig)
-    const batchSize = 3;
-    for (let i = 0; i < feeds.length; i += batchSize) {
-        const batch = feeds.slice(i, i + batchSize);
-        const results = await Promise.all(
-            batch.map(async feed => {
-                try {
-                    const items = await parser.fetchFeed(feed.url);
-                    return items.map(item => ({
-                        ...item,
-                        source: feed.source,
-                        category: feed.category,
-                        id: `${feed.source}-${item.link}`.replace(/[^a-zA-Z0-9]/g, '-'),
-                        language: language
-                    }));
-                } catch (error) {
-                    console.error(`Failed to load ${feed.source}:`, error);
-                    return [];
-                }
+    // Load all sources in parallel with 3 second timeout each
+    const results = await Promise.allSettled(
+        sources.map(source => 
+            fetch(source.url, { 
+                signal: AbortSignal.timeout(3000)
             })
-        );
-        
-        results.forEach(articles => {
-            allArticles.push(...articles);
-        });
-        
-        console.log(`Loaded batch ${Math.floor(i / batchSize) + 1}, total articles: ${allArticles.length}`);
+            .then(response => response.json())
+            .then(data => ({ data, source }))
+        )
+    );
+    
+    results.forEach((result, index) => {
+        if (result.status === 'fulfilled') {
+            const { data, source } = result.value;
+            let articles = [];
+            
+            try {
+                if (source.type === 'hn') {
+                    articles = parser.parseHackerNews(data, source.source, source.category);
+                } else if (source.type === 'lobsters') {
+                    articles = parser.parseLobsters(data, source.source, source.category);
+                } else if (source.type === 'reddit') {
+                    articles = parser.parseReddit(data, source.source, source.category);
+                }
+                
+                allArticles.push(...articles);
+                console.log(`✓ Loaded ${articles.length} articles from ${source.source}`);
+            } catch (error) {
+                console.error(`Failed to parse ${source.source}:`, error);
+            }
+        } else {
+            console.warn(`✗ Failed to load ${sources[index].source}:`, result.reason?.message || 'Unknown error');
+        }
+    });
+    
+    const loadTime = performance.now() - startTime;
+    console.log(`✅ Total: ${allArticles.length} articles loaded in ${loadTime.toFixed(0)}ms`);
+    
+    if (allArticles.length === 0) {
+        throw new Error('No articles could be loaded');
     }
 
     // Shuffle articles for mixed feed experience
