@@ -4,79 +4,65 @@
 const RSS_FEEDS = {
     en: [
         // Philosophy & Essays
-        { url: 'https://aeon.co/feed.rss', category: 'philosophy', source: 'Aeon' },
-        { url: 'https://www.brainpickings.org/feed/', category: 'essay', source: 'The Marginalian' },
-        { url: 'https://philosophynow.org/rss/articles.xml', category: 'philosophy', source: 'Philosophy Now' },
+        { url: 'https://feeds.aeon.co/aeon', category: 'philosophy', source: 'Aeon' },
+        { url: 'https://www.themarginalian.org/feed/', category: 'essay', source: 'The Marginalian' },
+        { url: 'https://longreads.com/feed/', category: 'culture', source: 'Longreads' },
         
         // Science
         { url: 'https://www.quantamagazine.org/feed/', category: 'science', source: 'Quanta Magazine' },
-        { url: 'https://www.scientificamerican.com/feed/', category: 'science', source: 'Scientific American' },
+        { url: 'http://rss.sciam.com/ScientificAmerican-Global', category: 'science', source: 'Scientific American' },
+        { url: 'https://nautil.us/feed/', category: 'science', source: 'Nautilus' },
         
         // Technology & Culture
         { url: 'https://www.theverge.com/rss/index.xml', category: 'technology', source: 'The Verge' },
-        { url: 'https://longreads.com/feed/', category: 'culture', source: 'Longreads' },
-        { url: 'https://lithub.com/feed/', category: 'literature', source: 'Literary Hub' },
+        { url: 'https://www.wired.com/feed/rss', category: 'technology', source: 'WIRED' },
+        { url: 'https://www.newyorker.com/feed/everything', category: 'culture', source: 'The New Yorker' },
         
         // Arts & History
-        { url: 'https://www.theparisreview.org/blog/feed/', category: 'literature', source: 'Paris Review' },
-        { url: 'https://www.historytoday.com/rss.xml', category: 'history', source: 'History Today' }
+        { url: 'https://lithub.com/feed/', category: 'literature', source: 'Literary Hub' },
+        { url: 'https://www.theparisreview.org/blog/feed/', category: 'literature', source: 'Paris Review' }
     ],
     
     de: [
-        // Philosophy & Essays
-        { url: 'https://www.philosophie.ch/feed', category: 'philosophy', source: 'Philosophie.ch' },
-        { url: 'https://www.zeit.de/wissen/index', category: 'essay', source: 'ZEIT Wissen' },
-        
-        // Science
+        // Science & Culture
         { url: 'https://www.spektrum.de/alias/rss/spektrum-de-rss-feed/996406', category: 'science', source: 'Spektrum' },
+        { url: 'https://www.heise.de/rss/heise-atom.xml', category: 'technology', source: 'Heise' },
+        { url: 'https://www.zeit.de/index', category: 'culture', source: 'ZEIT Online' },
+        { url: 'https://www.spiegel.de/schlagzeilen/index.rss', category: 'culture', source: 'SPIEGEL' },
+        { url: 'https://www.sueddeutsche.de/news/rss', category: 'culture', source: 'Süddeutsche' },
         
-        // Technology & Culture
-        { url: 'https://www.heise.de/rss/heise.rdf', category: 'technology', source: 'Heise' },
-        { url: 'https://www.perlentaucher.de/rss/magazinrundschau.xml', category: 'culture', source: 'Perlentaucher' },
-        
-        // Literature
-        { url: 'https://www.literaturkritik.de/literaturkritik_rss.xml', category: 'literature', source: 'Literaturkritik' }
+        // Literature & Philosophy
+        { url: 'https://www.perlentaucher.de/rss/magazinrundschau.xml', category: 'literature', source: 'Perlentaucher' }
     ],
     
     fr: [
-        // Philosophy & Essays
-        { url: 'https://www.philomag.com/rss.xml', category: 'philosophy', source: 'Philosophie Magazine' },
-        
-        // Science
-        { url: 'https://www.pourlascience.fr/rss.xml', category: 'science', source: 'Pour la Science' },
-        
-        // Culture & Literature
-        { url: 'https://www.lemonde.fr/culture/rss_full.xml', category: 'culture', source: 'Le Monde Culture' },
-        { url: 'https://www.revuedesdeuxmondes.fr/feed/', category: 'literature', source: 'Revue des Deux Mondes' }
+        // Culture & Science
+        { url: 'https://www.lemonde.fr/rss/une.xml', category: 'culture', source: 'Le Monde' },
+        { url: 'https://www.courrierinternational.com/feed/all/rss.xml', category: 'culture', source: 'Courrier International' },
+        { url: 'https://www.liberation.fr/arc/outboundfeeds/rss/', category: 'culture', source: 'Libération' }
     ],
     
     es: [
-        // Philosophy & Essays
-        { url: 'https://ethic.es/feed/', category: 'philosophy', source: 'Ethic' },
-        
-        // Science
-        { url: 'https://www.investigacionyciencia.es/rss', category: 'science', source: 'Investigación y Ciencia' },
-        
-        // Culture
-        { url: 'https://www.eldiario.es/cultura/rss/', category: 'culture', source: 'elDiario.es Cultura' }
+        // Culture & Science
+        { url: 'https://feeds.elpais.com/mrss-s/pages/ep/site/elpais.com/portada', category: 'culture', source: 'El País' },
+        { url: 'https://www.lavanguardia.com/rss/home.xml', category: 'culture', source: 'La Vanguardia' }
     ],
     
     it: [
-        // Philosophy & Culture
+        // Culture & Science
         { url: 'https://www.internazionale.it/rss', category: 'culture', source: 'Internazionale' },
-        
-        // Science
         { url: 'https://www.lescienze.it/rss/all/rss2.0.xml', category: 'science', source: 'Le Scienze' }
     ],
     
     ja: [
-        // Culture & Technology
-        { url: 'https://wired.jp/feed/', category: 'technology', source: 'WIRED Japan' }
+        // Technology & Culture
+        { url: 'https://wired.jp/feed/', category: 'technology', source: 'WIRED Japan' },
+        { url: 'https://www3.nhk.or.jp/rss/news/cat0.xml', category: 'culture', source: 'NHK' }
     ],
     
     ko: [
-        // Technology & Culture
-        { url: 'https://www.sciencetimes.co.kr/feed/', category: 'science', source: 'Science Times' }
+        // Science & Culture
+        { url: 'https://www.hani.co.kr/rss/', category: 'culture', source: 'Hankyoreh' }
     ],
     
     zh: [
@@ -85,8 +71,13 @@ const RSS_FEEDS = {
     ]
 };
 
-// CORS Proxy for RSS feeds (needed for client-side fetching)
-const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+// CORS Proxy - mit Fallback-Option
+const CORS_PROXIES = [
+    'https://api.allorigins.win/raw?url=',
+    'https://corsproxy.io/?'
+];
+
+let currentProxyIndex = 0;
 
 class FeedParser {
     constructor() {
@@ -94,15 +85,48 @@ class FeedParser {
     }
 
     async fetchFeed(feedUrl) {
+        // Versuche zuerst ohne Proxy
         try {
-            const response = await fetch(CORS_PROXY + encodeURIComponent(feedUrl));
-            const text = await response.text();
-            const xml = this.parser.parseFromString(text, 'text/xml');
-            return this.parseXML(xml);
+            const response = await fetch(feedUrl);
+            if (response.ok) {
+                const text = await response.text();
+                const xml = this.parser.parseFromString(text, 'text/xml');
+                const articles = this.parseXML(xml);
+                if (articles.length > 0) {
+                    console.log(`✓ Loaded ${articles.length} articles from ${feedUrl}`);
+                    return articles;
+                }
+            }
         } catch (error) {
-            console.error(`Error fetching feed ${feedUrl}:`, error);
-            return [];
+            console.log(`Direct fetch failed for ${feedUrl}, trying with proxy...`);
         }
+
+        // Wenn direkter Zugriff fehlschlägt, versuche mit Proxy
+        for (let i = 0; i < CORS_PROXIES.length; i++) {
+            try {
+                const proxyUrl = CORS_PROXIES[i] + encodeURIComponent(feedUrl);
+                console.log(`Trying proxy ${i + 1}/${CORS_PROXIES.length} for ${feedUrl}`);
+                
+                const response = await fetch(proxyUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const text = await response.text();
+                const xml = this.parser.parseFromString(text, 'text/xml');
+                const articles = this.parseXML(xml);
+                
+                if (articles.length > 0) {
+                    console.log(`✓ Loaded ${articles.length} articles via proxy from ${feedUrl}`);
+                    return articles;
+                }
+            } catch (error) {
+                console.error(`Proxy ${i + 1} failed for ${feedUrl}:`, error.message);
+            }
+        }
+        
+        console.error(`All attempts failed for ${feedUrl}`);
+        return [];
     }
 
     parseXML(xml) {
@@ -143,17 +167,36 @@ async function loadFeedsForLanguage(language) {
     const feeds = RSS_FEEDS[language] || RSS_FEEDS.en;
     const parser = new FeedParser();
     const allArticles = [];
+    
+    console.log(`Loading ${feeds.length} feeds for language: ${language}`);
 
-    for (const feed of feeds) {
-        const items = await parser.fetchFeed(feed.url);
-        const articlesWithMeta = items.map(item => ({
-            ...item,
-            source: feed.source,
-            category: feed.category,
-            id: `${feed.source}-${item.link}`.replace(/[^a-zA-Z0-9]/g, '-'),
-            language: language
-        }));
-        allArticles.push(...articlesWithMeta);
+    //Lade alle Feeds parallel (aber mit Limit von 3 gleichzeitig)
+    const batchSize = 3;
+    for (let i = 0; i < feeds.length; i += batchSize) {
+        const batch = feeds.slice(i, i + batchSize);
+        const results = await Promise.all(
+            batch.map(async feed => {
+                try {
+                    const items = await parser.fetchFeed(feed.url);
+                    return items.map(item => ({
+                        ...item,
+                        source: feed.source,
+                        category: feed.category,
+                        id: `${feed.source}-${item.link}`.replace(/[^a-zA-Z0-9]/g, '-'),
+                        language: language
+                    }));
+                } catch (error) {
+                    console.error(`Failed to load ${feed.source}:`, error);
+                    return [];
+                }
+            })
+        );
+        
+        results.forEach(articles => {
+            allArticles.push(...articles);
+        });
+        
+        console.log(`Loaded batch ${Math.floor(i / batchSize) + 1}, total articles: ${allArticles.length}`);
     }
 
     // Shuffle articles for mixed feed experience
