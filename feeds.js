@@ -28,16 +28,16 @@ const API_SOURCES = {
     de: [
         // Science & Research  
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spektrum.de/alias/rss/spektrum-de-rss-feed/996406', type: 'rss2json', category: 'science', source: 'Spektrum' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.wissenschaft.de/feed/', type: 'rss2json', category: 'science', source: 'Wissenschaft.de' },
         
-        // Culture & Essays
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.perlentaucher.de/rss/magazinrundschau.xml', type: 'rss2json', category: 'culture', source: 'Perlentaucher' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.zeit.de/index', type: 'rss2json', category: 'culture', source: 'ZEIT' },
+        // Culture & News
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spiegel.de/schlagzeilen/index.rss', type: 'rss2json', category: 'culture', source: 'SPIEGEL' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.tagesschau.de/xml/rss2/', type: 'rss2json', category: 'culture', source: 'Tagesschau' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.deutschlandfunk.de/die-nachrichten.353.de.rss', type: 'rss2json', category: 'culture', source: 'Deutschlandfunk' },
         
         // Tech (Deutsch)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/rss/heise-atom.xml', type: 'rss2json', category: 'technology', source: 'Heise' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.golem.de/rss.php?feed=ATOM1.0', type: 'rss2json', category: 'technology', source: 'Golem' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.wissenschaft.de/feed/', type: 'rss2json', category: 'science', source: 'Wissenschaft.de' }
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.golem.de/rss.php?feed=ATOM1.0', type: 'rss2json', category: 'technology', source: 'Golem' }
     ],
     
     fr: [
