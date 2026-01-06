@@ -3,23 +3,17 @@ const API_SOURCES = {
     en: [
         // Tech & Innovation
         { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
-        { url: 'https://lobste.rs/hottest.json', type: 'lobsters', category: 'technology', source: 'Lobsters' },
         
         // Science & Research
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quantamagazine.org/feed/', type: 'rss2json', category: 'science', source: 'Quanta Magazine' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.sciencedaily.com/rss/all.xml', type: 'rss2json', category: 'science', source: 'Science Daily' },
         
         // Culture & Essays
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://aeon.co/feed/essays', type: 'rss2json', category: 'philosophy', source: 'Aeon' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.themarginalian.org/feed/', type: 'rss2json', category: 'culture', source: 'The Marginalian' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://lithub.com/feed/', type: 'rss2json', category: 'literature', source: 'Literary Hub' },
         
         // Art & Design
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.itsnicethat.com/feed', type: 'rss2json', category: 'art', source: "It's Nice That" },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.artnews.com/feed/', type: 'rss2json', category: 'art', source: 'ArtNews' },
-        
-        // Music & Culture
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://pitchfork.com/rss/reviews/albums/', type: 'rss2json', category: 'culture', source: 'Pitchfork' },
         
         // Longform Journalism
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://longreads.com/feed/', type: 'rss2json', category: 'essay', source: 'Longreads' }
