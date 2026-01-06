@@ -217,7 +217,8 @@ header .container {
 
 .article-actions {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-sm);
+    align-items: center;
     padding-top: var(--spacing-sm);
     border-top: 1px solid var(--color-border);
 }
@@ -226,18 +227,26 @@ header .container {
     background: none;
     border: none;
     font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-size: 1.25rem;
     color: var(--color-text-light);
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    justify-content: center;
     transition: var(--transition);
     padding: var(--spacing-xs);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 .action-btn:hover {
+    background: var(--color-bg);
     color: var(--color-text);
+}
+
+.action-btn .icon {
+    font-size: 1.25rem;
 }
 
 .action-btn.active.like {
@@ -250,6 +259,30 @@ header .container {
 
 .action-btn.active.read {
     color: var(--color-read);
+}
+
+.read-more-btn {
+    margin-left: auto;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: transparent;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent-light);
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.read-more-btn:hover {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+    transform: translateX(2px);
 }
 
 /* Loader */
@@ -424,6 +457,16 @@ header .container {
     
     .nav-btn .label {
         display: none;
+    }
+    
+    .read-more-btn {
+        font-size: 0.8125rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .action-btn {
+        width: 36px;
+        height: 36px;
     }
 }
 

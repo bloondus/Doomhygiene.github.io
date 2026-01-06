@@ -193,9 +193,11 @@ class DoomHygieneApp {
             card.classList.add('read');
         }
 
-        // Clean description
-        const cleanDesc = this.stripHTML(article.description).substring(0, 250);
-        const description = cleanDesc + (cleanDesc.length >= 250 ? '...' : '');
+        // Extended description preview (400 characters)
+        const cleanDesc = this.stripHTML(article.description);
+        const description = cleanDesc.length > 400 
+            ? cleanDesc.substring(0, 400) + '...' 
+            : cleanDesc;
 
         // Format date
         const formattedDate = article.date ? new Date(article.date).toLocaleDateString(currentLanguage, {
@@ -221,22 +223,23 @@ class DoomHygieneApp {
             
             <div class="article-actions">
                 <button class="action-btn like ${Storage.has(STORAGE_KEYS.LIKES, article.id) ? 'active' : ''}" 
-                        data-action="like" data-id="${article.id}">
+                        data-action="like" data-id="${article.id}" title="${t('like')}">
                     <span class="icon">${Storage.has(STORAGE_KEYS.LIKES, article.id) ? '❤️' : '🤍'}</span>
-                    <span>${t('like')}</span>
                 </button>
                 
                 <button class="action-btn bookmark ${Storage.has(STORAGE_KEYS.BOOKMARKS, article.id) ? 'active' : ''}" 
-                        data-action="bookmark" data-id="${article.id}">
+                        data-action="bookmark" data-id="${article.id}" title="${t('bookmark')}">
                     <span class="icon">${Storage.has(STORAGE_KEYS.BOOKMARKS, article.id) ? '🔖' : '📑'}</span>
-                    <span>${t('bookmark')}</span>
                 </button>
                 
                 <button class="action-btn read ${Storage.has(STORAGE_KEYS.READ, article.id) ? 'active' : ''}" 
-                        data-action="read" data-id="${article.id}">
+                        data-action="read" data-id="${article.id}" title="${t('markAsRead')}">
                     <span class="icon">${Storage.has(STORAGE_KEYS.READ, article.id) ? '✓' : '○'}</span>
-                    <span>${t('markAsRead')}</span>
                 </button>
+                
+                <a href="${this.escapeHTML(article.link)}" target="_blank" rel="noopener noreferrer" class="read-more-btn">
+                    ${t('readMore')} →
+                </a>
             </div>
         `;
 

@@ -8,8 +8,8 @@ const i18n = {
         like: 'Like',
         bookmark: 'Bookmark',
         markAsRead: 'Mark as read',
-        noBookmarks: 'No bookmarks yet. Start saving articles you want to read later.',
         readMore: 'Read more',
+        noBookmarks: 'No bookmarks yet. Start saving articles you want to read later.',
         categories: {
             philosophy: 'Philosophy',
             science: 'Science',
@@ -29,8 +29,8 @@ const i18n = {
         like: 'Gefällt mir',
         bookmark: 'Merken',
         markAsRead: 'Als gelesen markieren',
-        noBookmarks: 'Noch keine Lesezeichen. Speichere Artikel, die du später lesen möchtest.',
         readMore: 'Weiterlesen',
+        noBookmarks: 'Noch keine Lesezeichen. Speichere Artikel, die du später lesen möchtest.',
         categories: {
             philosophy: 'Philosophie',
             science: 'Wissenschaft',

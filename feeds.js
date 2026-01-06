@@ -119,7 +119,7 @@ class FeedParser {
         return data.items.map((item, index) => ({
             title: item.title,
             link: item.link,
-            description: item.description?.replace(/<[^>]*>/g, '').substring(0, 300) || item.content?.replace(/<[^>]*>/g, '').substring(0, 300) || '',
+            description: this.cleanHTML(item.description || item.content || ''),
             date: item.pubDate || new Date().toISOString(),
             source: source,
             category: category,
@@ -127,7 +127,15 @@ class FeedParser {
             author: item.author || ''
         }));
     }
-}
+    
+    cleanHTML(html) {
+        if (!html) return '';
+        // Remove HTML tags
+        const text = html.replace(/<[^>]*>/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+        return text;
+    }
 
 
 async function loadFeedsForLanguage(language) {
