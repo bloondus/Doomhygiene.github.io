@@ -55,6 +55,17 @@ header .container {
     margin: 0 auto;
 }
 
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.branding {
+    flex: 1;
+}
+
 .logo {
     font-family: var(--font-serif);
     font-size: 1.1rem;
@@ -67,23 +78,26 @@ header .container {
     font-size: 0.75rem;
     color: var(--color-text-light);
     font-weight: 300;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 0;
 }
 
 .language-selector {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
+    gap: 0.5rem;
+    flex-shrink: 0;
 }
 
 .language-selector label {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     color: var(--color-text-light);
+    white-space: nowrap;
 }
 
 .language-selector select {
     font-family: var(--font-sans);
-    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
     border: 1px solid var(--color-border);
     border-radius: var(--border-radius);
     background: white;
