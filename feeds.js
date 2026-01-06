@@ -28,17 +28,20 @@ const API_SOURCES = {
     de: [
         // Science & Research
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spektrum.de/alias/rss/spektrum-de-rss-feed/996406', type: 'rss2json', category: 'science', source: 'Spektrum' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.wissenschaft.de/feed/', type: 'rss2json', category: 'science', source: 'Wissenschaft.de' },
         
         // Culture & Essays
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.perlentaucher.de/rss/magazinrundschau.xml', type: 'rss2json', category: 'culture', source: 'Perlentaucher' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.zeit.de/wissen/index', type: 'rss2json', category: 'culture', source: 'ZEIT Wissen' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.faz.net/rss/aktuell/feuilleton/', type: 'rss2json', category: 'culture', source: 'FAZ Feuilleton' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spiegel.de/kultur/index.rss', type: 'rss2json', category: 'culture', source: 'SPIEGEL Kultur' },
         
         // Art
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.monopol-magazin.de/rss.xml', type: 'rss2json', category: 'art', source: 'Monopol' },
         
-        // Tech
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
+        // Tech (Deutsch)
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/rss/heise-atom.xml', type: 'rss2json', category: 'technology', source: 'Heise' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.golem.de/rss.php?feed=RSS2.0', type: 'rss2json', category: 'technology', source: 'Golem' }
     ],
     
     fr: [
