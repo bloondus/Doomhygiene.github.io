@@ -1,35 +1,79 @@
-// Fast JSON API Sources (no CORS issues!)
+// Curated Quality Sources - Science, Culture, Art, Music, Research
 const API_SOURCES = {
     en: [
+        // Tech & Innovation
         { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
         { url: 'https://lobste.rs/hottest.json', type: 'lobsters', category: 'technology', source: 'Lobsters' },
-        { url: 'https://www.reddit.com/r/TrueReddit.json', type: 'reddit', category: 'culture', source: 'Reddit' },
-        { url: 'https://www.reddit.com/r/philosophy.json', type: 'reddit', category: 'philosophy', source: 'Reddit Philosophy' },
-        { url: 'https://www.reddit.com/r/science.json', type: 'reddit', category: 'science', source: 'Reddit Science' }
+        
+        // Science & Research
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quantamagazine.org/feed/', type: 'rss2json', category: 'science', source: 'Quanta Magazine' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.sciencedaily.com/rss/all.xml', type: 'rss2json', category: 'science', source: 'Science Daily' },
+        
+        // Culture & Essays
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://aeon.co/feed/essays', type: 'rss2json', category: 'philosophy', source: 'Aeon' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.themarginalian.org/feed/', type: 'rss2json', category: 'culture', source: 'The Marginalian' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://lithub.com/feed/', type: 'rss2json', category: 'literature', source: 'Literary Hub' },
+        
+        // Art & Design
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.itsnicethat.com/feed', type: 'rss2json', category: 'art', source: "It's Nice That" },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.artnews.com/feed/', type: 'rss2json', category: 'art', source: 'ArtNews' },
+        
+        // Music & Culture
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://pitchfork.com/rss/reviews/albums/', type: 'rss2json', category: 'culture', source: 'Pitchfork' },
+        
+        // Longform Journalism
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://longreads.com/feed/', type: 'rss2json', category: 'essay', source: 'Longreads' }
     ],
     
     de: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
-        { url: 'https://www.reddit.com/r/de.json', type: 'reddit', category: 'culture', source: 'Reddit DE' }
+        // Science & Research
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spektrum.de/alias/rss/spektrum-de-rss-feed/996406', type: 'rss2json', category: 'science', source: 'Spektrum' },
+        
+        // Culture & Essays
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.perlentaucher.de/rss/magazinrundschau.xml', type: 'rss2json', category: 'culture', source: 'Perlentaucher' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.zeit.de/wissen/index', type: 'rss2json', category: 'culture', source: 'ZEIT Wissen' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.faz.net/rss/aktuell/feuilleton/', type: 'rss2json', category: 'culture', source: 'FAZ Feuilleton' },
+        
+        // Art
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.monopol-magazin.de/rss.xml', type: 'rss2json', category: 'art', source: 'Monopol' },
+        
+        // Tech
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     fr: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
-        { url: 'https://www.reddit.com/r/france.json', type: 'reddit', category: 'culture', source: 'Reddit France' }
+        // Culture & Science
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.lemonde.fr/culture/rss_full.xml', type: 'rss2json', category: 'culture', source: 'Le Monde Culture' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.sciencesetavenir.fr/rss.xml', type: 'rss2json', category: 'science', source: 'Sciences et Avenir' },
+        
+        // Art
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.beauxarts.com/feed/', type: 'rss2json', category: 'art', source: 'Beaux Arts' },
+        
+        // Tech
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     es: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
-        { url: 'https://www.reddit.com/r/es.json', type: 'reddit', category: 'culture', source: 'Reddit ES' }
+        // Culture & Science
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://elpais.com/rss/cultura/portada.xml', type: 'rss2json', category: 'culture', source: 'El País Cultura' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.agenciasinc.es/RSS', type: 'rss2json', category: 'science', source: 'SINC' },
+        
+        // Tech
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     it: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
-        { url: 'https://www.reddit.com/r/italy.json', type: 'reddit', category: 'culture', source: 'Reddit Italy' }
+        // Culture & Science
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.repubblica.it/rss/cultura/rss2.0.xml', type: 'rss2json', category: 'culture', source: 'Repubblica Cultura' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.ansa.it/sito/notizie/cultura/cultura_rss.xml', type: 'rss2json', category: 'culture', source: 'ANSA Cultura' },
+        
+        // Tech
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     ja: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www3.nhk.or.jp/rss/news/cat0.xml', type: 'rss2json', category: 'culture', source: 'NHK' }
     ],
     
     ko: [
@@ -37,7 +81,8 @@ const API_SOURCES = {
     ],
     
     zh: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://cn.nytimes.com/rss.html', type: 'rss2json', category: 'culture', source: 'NY Times Chinese' }
     ]
 };
 
@@ -68,19 +113,19 @@ class FeedParser {
         }));
     }
 
-    parseReddit(data, source, category) {
-        return data.data.children
-            .filter(item => item.data.url && !item.data.is_self)
-            .map(item => ({
-                title: item.data.title,
-                link: item.data.url,
-                description: item.data.selftext?.substring(0, 200) || '',
-                date: new Date(item.data.created_utc * 1000).toISOString(),
-                source: source,
-                category: category,
-                id: `reddit-${item.data.id}`,
-                points: item.data.score
-            }));
+    parseRSS2JSON(data, source, category) {
+        if (!data.items) return [];
+        
+        return data.items.map((item, index) => ({
+            title: item.title,
+            link: item.link,
+            description: item.description?.replace(/<[^>]*>/g, '').substring(0, 300) || item.content?.replace(/<[^>]*>/g, '').substring(0, 300) || '',
+            date: item.pubDate || new Date().toISOString(),
+            source: source,
+            category: category,
+            id: `${source.toLowerCase().replace(/\s+/g, '-')}-${index}`,
+            author: item.author || ''
+        }));
     }
 }
 
@@ -114,8 +159,8 @@ async function loadFeedsForLanguage(language) {
                     articles = parser.parseHackerNews(data, source.source, source.category);
                 } else if (source.type === 'lobsters') {
                     articles = parser.parseLobsters(data, source.source, source.category);
-                } else if (source.type === 'reddit') {
-                    articles = parser.parseReddit(data, source.source, source.category);
+                } else if (source.type === 'rss2json') {
+                    articles = parser.parseRSS2JSON(data, source.source, source.category);
                 }
                 
                 allArticles.push(...articles);
