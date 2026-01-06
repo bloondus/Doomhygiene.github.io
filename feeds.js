@@ -26,22 +26,20 @@ const API_SOURCES = {
     ],
     
     de: [
-        // Science & Research
+        // Science & Research  
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spektrum.de/alias/rss/spektrum-de-rss-feed/996406', type: 'rss2json', category: 'science', source: 'Spektrum' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.wissenschaft.de/feed/', type: 'rss2json', category: 'science', source: 'Wissenschaft.de' },
         
         // Culture & Essays
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.perlentaucher.de/rss/magazinrundschau.xml', type: 'rss2json', category: 'culture', source: 'Perlentaucher' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.zeit.de/wissen/index', type: 'rss2json', category: 'culture', source: 'ZEIT Wissen' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.faz.net/rss/aktuell/feuilleton/', type: 'rss2json', category: 'culture', source: 'FAZ Feuilleton' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spiegel.de/kultur/index.rss', type: 'rss2json', category: 'culture', source: 'SPIEGEL Kultur' },
-        
-        // Art
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.monopol-magazin.de/rss.xml', type: 'rss2json', category: 'art', source: 'Monopol' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.zeit.de/index', type: 'rss2json', category: 'culture', source: 'ZEIT' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spiegel.de/schlagzeilen/index.rss', type: 'rss2json', category: 'culture', source: 'SPIEGEL' },
         
         // Tech (Deutsch)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/rss/heise-atom.xml', type: 'rss2json', category: 'technology', source: 'Heise' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.golem.de/rss.php?feed=RSS2.0', type: 'rss2json', category: 'technology', source: 'Golem' }
+        
+        // Fallback to working sources
+        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
+        { url: 'https://lobste.rs/hottest.json', type: 'lobsters', category: 'technology', source: 'Lobsters' }
     ],
     
     fr: [
@@ -149,13 +147,18 @@ async function loadFeedsForLanguage(language) {
     console.log(`⚡ Loading ${sources.length} sources for language: ${language}`);
     const startTime = performance.now();
 
-    // Load all sources in parallel with 3 second timeout each
+    // Load all sources in parallel with 8 second timeout each
     const results = await Promise.allSettled(
         sources.map(source => 
             fetch(source.url, { 
-                signal: AbortSignal.timeout(3000)
+                signal: AbortSignal.timeout(8000)
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => ({ data, source }))
         )
     );
@@ -174,8 +177,12 @@ async function loadFeedsForLanguage(language) {
                     articles = parser.parseRSS2JSON(data, source.source, source.category);
                 }
                 
-                allArticles.push(...articles);
-                console.log(`✓ Loaded ${articles.length} articles from ${source.source}`);
+                if (articles.length > 0) {
+                    allArticles.push(...articles);
+                    console.log(`✓ Loaded ${articles.length} articles from ${source.source}`);
+                } else {
+                    console.warn(`⚠ No articles from ${source.source}`);
+                }
             } catch (error) {
                 console.error(`Failed to parse ${source.source}:`, error);
             }
@@ -188,7 +195,8 @@ async function loadFeedsForLanguage(language) {
     console.log(`✅ Total: ${allArticles.length} articles loaded in ${loadTime.toFixed(0)}ms`);
     
     if (allArticles.length === 0) {
-        throw new Error('No articles could be loaded');
+        console.error('❌ No articles loaded from any source!');
+        throw new Error('No articles could be loaded. Please try again later.');
     }
 
     // Shuffle articles for mixed feed experience
