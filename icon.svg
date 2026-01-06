@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#8b7355" rx="80"/>
+  <g fill="#fdfcfa">
+    <!-- Stylized book/scroll icon -->
+    <path d="M140 120 h232 c20 0 36 16 36 36 v200 c0 20 -16 36 -36 36 h-232 c-20 0 -36 -16 -36 -36 v-200 c0 -20 16 -36 36 -36 z" fill="none" stroke="#fdfcfa" stroke-width="16"/>
+    <line x1="200" y1="200" x2="340" y2="200" stroke="#fdfcfa" stroke-width="12" stroke-linecap="round"/>
+    <line x1="200" y1="250" x2="340" y2="250" stroke="#fdfcfa" stroke-width="12" stroke-linecap="round"/>
+    <line x1="200" y1="300" x2="280" y2="300" stroke="#fdfcfa" stroke-width="12" stroke-linecap="round"/>
+    <!-- Leaf accent for "hygiene/clean" -->
+    <path d="M 320 290 Q 340 280 350 300 Q 360 320 340 330 Q 320 340 310 320 Q 300 300 320 290 Z" fill="#d4c4b0"/>
+  </g>
+</svg>
