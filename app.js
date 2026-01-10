@@ -455,14 +455,15 @@ if (document.readyState === 'loading') {
 }
 
 // Register Service Worker for offline support
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/Doomhygiene.github.io/sw.js')
-            .then(registration => {
-                console.log('✅ Service Worker registered:', registration.scope);
-            })
-            .catch(error => {
-                console.log('❌ Service Worker registration failed:', error);
-            });
-    });
-}
+// DISABLED: Causing errors with Response conversion
+// if ('serviceWorker' in navigator) {
+//     window.addEventListener('load', () => {
+//         navigator.serviceWorker.register('/Doomhygiene.github.io/sw.js')
+//             .then(registration => {
+//                 console.log('✅ Service Worker registered:', registration.scope);
+//             })
+//             .catch(error => {
+//                 console.log('❌ Service Worker registration failed:', error);
+//             });
+//     });
+// }

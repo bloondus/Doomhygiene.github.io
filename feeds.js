@@ -20,34 +20,26 @@ const API_SOURCES = {
     ],
     
     de: [
-        // Science & Research  
+        // Science & Research (3 funktionierende Quellen)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spektrum.de/alias/rss/spektrum-de-rss-feed/996406', type: 'rss2json', category: 'science', source: 'Spektrum' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.wissenschaft.de/feed/', type: 'rss2json', category: 'science', source: 'Wissenschaft.de' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quarks.de/feed/', type: 'rss2json', category: 'science', source: 'Quarks' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scienceblogs.de/feed/', type: 'rss2json', category: 'science', source: 'Scienceblogs' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.mpg.de/rss.xml', type: 'rss2json', category: 'science', source: 'Max-Planck' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.riffreporter.de/de/feed', type: 'rss2json', category: 'science', source: 'Riffreporter' },
         
-        // Culture & News
+        // Culture & News (5)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.spiegel.de/schlagzeilen/index.rss', type: 'rss2json', category: 'culture', source: 'SPIEGEL' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.tagesschau.de/xml/rss2/', type: 'rss2json', category: 'culture', source: 'Tagesschau' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.deutschlandfunk.de/die-nachrichten.353.de.rss', type: 'rss2json', category: 'culture', source: 'Deutschlandfunk' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.srf.ch/news/bnf/rss/1646', type: 'rss2json', category: 'culture', source: 'SRF' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.derstandard.at/rss', type: 'rss2json', category: 'culture', source: 'Der Standard' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.brandeins.de/feed', type: 'rss2json', category: 'culture', source: 'Brand Eins' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://uebermedien.de/feed/', type: 'rss2json', category: 'culture', source: 'Übermedien' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.republik.ch/feed', type: 'rss2json', category: 'culture', source: 'Republik' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.woz.ch/rss', type: 'rss2json', category: 'culture', source: 'WOZ' },
         
-        // Literature
+        // Literature (1)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.54books.de/feed/', type: 'rss2json', category: 'literature', source: '54books' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://literaturkritik.de/rss.xml', type: 'rss2json', category: 'literature', source: 'Literaturkritik' },
         
-        // Music
+        // Music (1)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.musikexpress.de/feed/', type: 'rss2json', category: 'culture', source: 'Musikexpress' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://intro.de/feed', type: 'rss2json', category: 'culture', source: 'Intro' },
         
-        // Tech & Digital Rights
+        // Tech & Digital Rights (3)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/rss/heise-atom.xml', type: 'rss2json', category: 'technology', source: 'Heise' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.golem.de/rss.php?feed=ATOM1.0', type: 'rss2json', category: 'technology', source: 'Golem' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', type: 'rss2json', category: 'technology', source: 'Netzpolitik' }
