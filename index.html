@@ -15,21 +15,63 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Startup Loading Screen -->
+    <!-- Verbesserter Startup-Loading-Screen -->
     <div id="startup-loader" class="startup-loader">
         <div class="startup-content">
-            <h1 class="startup-logo">🌿 Doom Hygiene</h1>
+            <!-- Animated Logo -->
+            <div class="startup-logo-container">
+                <div class="logo-circle"></div>
+                <h1 class="startup-logo">🌿 Doom Hygiene</h1>
+            </div>
+            
             <p class="startup-tagline">Scrollen mit Substanz</p>
+            
+            <!-- Progress Section -->
             <div class="startup-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
+                <div class="progress-wrapper">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                        <div class="progress-shine"></div>
+                    </div>
+                    <span class="progress-percentage" id="progress-percentage">0%</span>
                 </div>
-                <p class="startup-status" id="startup-status">Bereitet Quellen vor...</p>
-                <p class="startup-details" id="startup-details">0 von 0 Quellen geladen</p>
+                
+                <div class="status-info">
+                    <p class="startup-status" id="startup-status">
+                        <span class="status-icon">⚡</span>
+                        <span id="status-text">Bereitet Quellen vor...</span>
+                    </p>
+                    <p class="startup-details" id="startup-details">0 von 0 Quellen geladen</p>
+                </div>
             </div>
+            
+            <!-- Loading Animation -->
+            <div class="loading-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            
+            <!-- Random Tips Carousel -->
             <div class="startup-tips">
-                <p class="tip" id="loading-tip">💡 Tipp: Mit ❤️ kannst du Artikel markieren</p>
+                <div class="tip-container">
+                    <span class="tip-icon">💡</span>
+                    <p class="tip" id="loading-tip">Lädt kreative Inhalte...</p>
+                </div>
             </div>
+            
+            <!-- Fun Facts während Laden -->
+            <div class="fun-fact" id="fun-fact">
+                <span class="fact-icon">✨</span>
+                <p id="fact-text"></p>
+            </div>
+        </div>
+        
+        <!-- Animated Background -->
+        <div class="bg-animation">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
         </div>
     </div>
 

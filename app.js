@@ -53,31 +53,72 @@ class DoomHygieneApp {
     
     showStartupScreen() {
         const tips = [
-            '💡 Tipp: Mit ❤️ kannst du Artikel markieren',
-            '💡 Tipp: 🔖 speichert Artikel für später',
-            '💡 Tipp: Wische nach unten für mehr Artikel',
-            '💡 Tipp: Wechsle die Sprache für andere Inhalte',
-            '💡 Tipp: Alle Daten bleiben lokal auf deinem Gerät',
-            '💡 Tipp: Kein Tracking, kein Account nötig',
+            '💡 Mit ❤️ kannst du Artikel für später markieren',
+            '💡 🔖 speichert Artikel in deiner persönlichen Sammlung',
+            '💡 Wische nach unten für endlosen Content',
+            '💡 Wechsle die Sprache für andere Perspektiven',
+            '💡 Alle Daten bleiben lokal - kein Tracking!',
+            '💡 Funktioniert auch offline dank Cache',
+            '💡 ○ markiert gelesene Artikel automatisch',
+            '💡 Longform-Artikel direkt in der App lesen',
+        ];
+        
+        const facts = [
+            'Doom Hygiene lädt Artikel von 16+ Quellen',
+            'Alle Inhalte sind werbefrei und tracker-frei',
+            'Open Source auf GitHub verfügbar',
+            'Fokus auf Essays, Analysen und Tiefgang',
+            'Alternative Medien statt Mainstream-Teaser',
+            'Privacy-first: Keine Cookies, keine Accounts',
         ];
         
         const randomTip = tips[Math.floor(Math.random() * tips.length)];
+        const randomFact = facts[Math.floor(Math.random() * facts.length)];
+        
         this.elements.loadingTip.textContent = randomTip;
+        document.getElementById('fact-text').textContent = randomFact;
+        
+        // Tip Rotation alle 3 Sekunden
+        this.tipRotation = setInterval(() => {
+            const newTip = tips[Math.floor(Math.random() * tips.length)];
+            const tipElement = this.elements.loadingTip;
+            tipElement.style.opacity = '0';
+            setTimeout(() => {
+                tipElement.textContent = newTip;
+                tipElement.style.opacity = '1';
+            }, 300);
+        }, 3000);
     }
     
     hideStartupScreen() {
+        clearInterval(this.tipRotation);
+        
         this.elements.startupLoader.classList.add('fade-out');
         
         setTimeout(() => {
             this.elements.startupLoader.style.display = 'none';
             this.elements.appContainer.style.opacity = '1';
             this.elements.appContainer.style.transition = 'opacity 0.5s ease-in';
-        }, 500);
+        }, 800);
     }
     
     updateProgress(progress) {
         this.elements.progressFill.style.width = `${progress.percentage}%`;
-        this.elements.startupStatus.textContent = progress.status;
+        document.getElementById('progress-percentage').textContent = `${progress.percentage}%`;
+        
+        // Dynamische Status-Messages
+        let message = progress.status;
+        if (progress.percentage < 30) {
+            message = 'Verbindet mit Quellen...';
+        } else if (progress.percentage < 70) {
+            message = 'Lädt Artikel...';
+        } else if (progress.percentage < 100) {
+            message = 'Fast fertig...';
+        } else {
+            message = '✨ Bereit!';
+        }
+        
+        document.getElementById('status-text').textContent = message;
         this.elements.startupDetails.textContent = `${progress.loaded} von ${progress.total} Quellen geladen`;
     }
 
