@@ -193,11 +193,8 @@ class DoomHygieneApp {
             card.classList.add('read');
         }
 
-        // Extended description preview (400 characters)
-        const cleanDesc = this.stripHTML(article.description);
-        const description = cleanDesc.length > 400 
-            ? cleanDesc.substring(0, 400) + '...' 
-            : cleanDesc;
+        // Show full content with HTML structure
+        const description = article.fullContent || article.description || '';
 
         // Format date
         const formattedDate = article.date ? new Date(article.date).toLocaleDateString(currentLanguage, {
@@ -219,7 +216,7 @@ class DoomHygieneApp {
                 </a>
             </h2>
             
-            ${description ? `<p class="article-description">${this.escapeHTML(description)}</p>` : ''}
+            ${description ? `<div class="article-description article-content">${description}</div>` : ''}
             
             <div class="article-actions">
                 <button class="action-btn like ${Storage.has(STORAGE_KEYS.LIKES, article.id) ? 'active' : ''}" 

@@ -223,6 +223,54 @@ header .container {
     margin-bottom: var(--spacing-md);
 }
 
+/* Article content with HTML structure */
+.article-content {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+}
+
+.article-content p {
+    margin-bottom: var(--spacing-sm);
+}
+
+.article-content ul,
+.article-content ol {
+    margin-left: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.article-content li {
+    margin-bottom: 0.5rem;
+}
+
+.article-content strong {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.article-content em {
+    font-style: italic;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius);
+    margin: var(--spacing-sm) 0;
+}
+
+.article-content a {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
+
+.article-content a:hover {
+    color: var(--color-text);
+}
+
 .article-date {
     font-size: 0.8125rem;
     color: var(--color-text-light);

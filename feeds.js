@@ -131,7 +131,8 @@ class FeedParser {
         return data.items.map((item, index) => ({
             title: item.title,
             link: item.link,
-            description: this.cleanHTML(item.description || item.content || ''),
+            description: this.cleanHTML(item.content || item.description || ''),
+            fullContent: item.content || item.description || '',
             date: item.pubDate || new Date().toISOString(),
             source: source,
             category: category,
@@ -142,11 +143,14 @@ class FeedParser {
     
     cleanHTML(html) {
         if (!html) return '';
-        // Remove HTML tags
-        const text = html.replace(/<[^>]*>/g, ' ')
-            .replace(/\s+/g, ' ')
-            .trim();
-        return text;
+        // Remove dangerous tags but keep structure (p, ul, ol, li, strong, em)
+        const cleaned = html
+            .replace(/<script[^>]*>.*?<\/script>/gi, '')
+            .replace(/<iframe[^>]*>.*?<\/iframe>/gi, '')
+            .replace(/<style[^>]*>.*?<\/style>/gi, '')
+            .replace(/on\w+="[^"]*"/gi, '')
+            .replace(/on\w+='[^']*'/gi, '');
+        return cleaned;
     }
 }
 
