@@ -27,32 +27,31 @@ const API_SOURCES = {
     
     de: [
         // Science & Research - Full-Text Blogs
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quarks.de/feed/', type: 'rss2json', category: 'science', source: 'Quarks' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scienceblogs.de/feed/', type: 'rss2json', category: 'science', source: 'Scienceblogs' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scilogs.spektrum.de/feed/', type: 'rss2json', category: 'science', source: 'SciLogs' },
         
-        // Essays & Longform Journalism
+        // Essays & Longform Journalism - Garantiert Full-Text
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.carta.info/feed/', type: 'rss2json', category: 'essay', source: 'Carta' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', type: 'rss2json', category: 'essay', source: 'Der Freitag' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.perlentaucher.de/rss/magazine.xml', type: 'rss2json', category: 'culture', source: 'Perlentaucher' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.praefaktisch.de/feed/', type: 'rss2json', category: 'essay', source: 'Präfaktisch' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', type: 'rss2json', category: 'essay', source: 'Geschichte der Gegenwart' },
         
-        // Alternative Media & Deep Dives
+        // Tech & Digital Rights - Full Articles
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', type: 'rss2json', category: 'technology', source: 'Netzpolitik' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://uebermedien.de/feed/', type: 'rss2json', category: 'culture', source: 'Übermedien' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.telepolis.de/news-atom.xml', type: 'rss2json', category: 'technology', source: 'Telepolis' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://krautreporter.de/feed', type: 'rss2json', category: 'essay', source: 'Krautreporter' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/developer/rss/news-atom.xml', type: 'rss2json', category: 'technology', source: 'heise Developer' },
         
-        // Literature & Criticism - Full Reviews
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.54books.de/feed/', type: 'rss2json', category: 'literature', source: '54books' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.tell-review.de/feed/', type: 'rss2json', category: 'literature', source: 'Tell' },
+        // Culture & Criticism - Echte Artikel, keine Werbung
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.merkur-zeitschrift.de/feed/', type: 'rss2json', category: 'culture', source: 'Merkur' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.soziopolis.de/feed/', type: 'rss2json', category: 'essay', source: 'Soziopolis' },
         
-        // Music & Culture - Full Articles
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.musikexpress.de/feed/', type: 'rss2json', category: 'culture', source: 'Musikexpress' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.laut.de/News/Feed', type: 'rss2json', category: 'culture', source: 'laut.de' },
-        
-        // Philosophy & Critical Thinking
+        // Philosophy & Academia
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://philosophie.ch/feed', type: 'rss2json', category: 'essay', source: 'Philosophie.ch' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.praefaktisch.de/feed/', type: 'rss2json', category: 'essay', source: 'Präfaktisch' }
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.theorieblog.de/index.php/feed/', type: 'rss2json', category: 'essay', source: 'Theorieblog' },
+        
+        // Independent Blogs - Full Content
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.dasfilter.com/feed', type: 'rss2json', category: 'culture', source: 'Das Filter' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.fluter.de/feed', type: 'rss2json', category: 'culture', source: 'fluter' }
     ],
     
     fr: [
