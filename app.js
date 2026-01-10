@@ -16,27 +16,69 @@ class DoomHygieneApp {
             bookmarksList: document.getElementById('bookmarks-list'),
             showBookmarksBtn: document.getElementById('show-bookmarks'),
             closeBookmarksBtn: document.getElementById('close-bookmarks'),
-            bookmarkCount: document.getElementById('bookmark-count')
+            bookmarkCount: document.getElementById('bookmark-count'),
+            startupLoader: document.getElementById('startup-loader'),
+            appContainer: document.getElementById('app-container'),
+            progressFill: document.getElementById('progress-fill'),
+            startupStatus: document.getElementById('startup-status'),
+            startupDetails: document.getElementById('startup-details'),
+            loadingTip: document.getElementById('loading-tip')
         };
         
         this.init();
     }
 
     async init() {
+        // Show startup screen with random tip
+        this.showStartupScreen();
+        
         // Load saved language preference
-        const savedLanguage = Storage.get(STORAGE_KEYS.LANGUAGE)[0] || 'en';
+        const savedLanguage = Storage.get(STORAGE_KEYS.LANGUAGE)[0] || 'de';
         this.elements.languageSelector.value = savedLanguage;
         setLanguage(savedLanguage);
         
         // Setup event listeners
         this.setupEventListeners();
         
-        // Load initial articles
+        // Load initial articles with progress
         await this.loadArticles();
         this.renderArticles();
         
         // Update bookmark count
         this.updateBookmarkCount();
+        
+        // Hide startup screen, show app
+        this.hideStartupScreen();
+    }
+    
+    showStartupScreen() {
+        const tips = [
+            '💡 Tipp: Mit ❤️ kannst du Artikel markieren',
+            '💡 Tipp: 🔖 speichert Artikel für später',
+            '💡 Tipp: Wische nach unten für mehr Artikel',
+            '💡 Tipp: Wechsle die Sprache für andere Inhalte',
+            '💡 Tipp: Alle Daten bleiben lokal auf deinem Gerät',
+            '💡 Tipp: Kein Tracking, kein Account nötig',
+        ];
+        
+        const randomTip = tips[Math.floor(Math.random() * tips.length)];
+        this.elements.loadingTip.textContent = randomTip;
+    }
+    
+    hideStartupScreen() {
+        this.elements.startupLoader.classList.add('fade-out');
+        
+        setTimeout(() => {
+            this.elements.startupLoader.style.display = 'none';
+            this.elements.appContainer.style.opacity = '1';
+            this.elements.appContainer.style.transition = 'opacity 0.5s ease-in';
+        }, 500);
+    }
+    
+    updateProgress(progress) {
+        this.elements.progressFill.style.width = `${progress.percentage}%`;
+        this.elements.startupStatus.textContent = progress.status;
+        this.elements.startupDetails.textContent = `${progress.loaded} von ${progress.total} Quellen geladen`;
     }
 
     setupEventListeners() {
@@ -96,7 +138,12 @@ class DoomHygieneApp {
 
         try {
             const language = this.elements.languageSelector.value;
-            const newArticles = await loadFeedsForLanguage(language);
+            const newArticles = await loadFeedsForLanguage(language, (progress) => {
+                // Update progress bar
+                if (this.elements.progressFill) {
+                    this.updateProgress(progress);
+                }
+            });
             this.articles = newArticles;
             this.hasMoreArticles = this.articles.length > 0;
             

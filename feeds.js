@@ -174,17 +174,28 @@ class FeedParser {
     }
 }
 
-async function loadFeedsForLanguage(language) {
+async function loadFeedsForLanguage(language, onProgress = null) {
     const sources = API_SOURCES[language] || API_SOURCES.en;
     const parser = new FeedParser();
     const allArticles = [];
     
     console.log(`⚡ Loading ${sources.length} sources for language: ${language}`);
     const startTime = performance.now();
+    
+    // Initial Progress
+    if (onProgress) {
+        onProgress({
+            total: sources.length,
+            loaded: 0,
+            status: 'Verbinde mit Quellen...',
+            percentage: 0
+        });
+    }
 
     // Load all sources in parallel with 8 second timeout each
+    let loadedCount = 0;
     const results = await Promise.allSettled(
-        sources.map(source => 
+        sources.map((source, index) => 
             fetch(source.url, { 
                 signal: AbortSignal.timeout(8000)
             })
@@ -194,7 +205,19 @@ async function loadFeedsForLanguage(language) {
                 }
                 return response.json();
             })
-            .then(data => ({ data, source }))
+            .then(data => {
+                // Update progress after each source loads
+                loadedCount++;
+                if (onProgress) {
+                    onProgress({
+                        total: sources.length,
+                        loaded: loadedCount,
+                        status: 'Lädt Artikel...',
+                        percentage: Math.round((loadedCount / sources.length) * 100)
+                    });
+                }
+                return { data, source };
+            })
         )
     );
     
@@ -228,6 +251,16 @@ async function loadFeedsForLanguage(language) {
     
     const loadTime = performance.now() - startTime;
     console.log(`✅ Total: ${allArticles.length} articles loaded in ${loadTime.toFixed(0)}ms`);
+    
+    // Final Progress
+    if (onProgress) {
+        onProgress({
+            total: sources.length,
+            loaded: sources.length,
+            status: 'Fertig!',
+            percentage: 100
+        });
+    }
     
     if (allArticles.length === 0) {
         console.error('❌ No articles loaded from any source!');
