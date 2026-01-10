@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src * data: blob:; connect-src *; font-src 'self' https://fonts.gstatic.com; worker-src 'self';">
     <title>Doom Hygiene – Mindful Scrolling</title>
     <meta name="description" content="A mindful alternative to doomscrolling. Quality articles about philosophy, science, culture, and technology.">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -64,6 +65,7 @@
         </button>
     </nav>
 
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
     <script src="config.js"></script>
     <script src="i18n.js"></script>
     <script src="storage.js"></script>

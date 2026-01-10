@@ -143,14 +143,34 @@ class FeedParser {
     
     cleanHTML(html) {
         if (!html) return '';
-        // Remove dangerous tags but keep structure (p, ul, ol, li, strong, em)
-        const cleaned = html
+        
+        // Use DOMPurify for professional HTML sanitization
+        if (typeof DOMPurify !== 'undefined') {
+            return DOMPurify.sanitize(html, {
+                ALLOWED_TAGS: [
+                    'p', 'br', 'strong', 'em', 'b', 'i', 'a', 
+                    'ul', 'ol', 'li', 'img', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+                    'blockquote', 'code', 'pre', 'hr', 'span', 'div'
+                ],
+                ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'target', 'rel', 'class'],
+                ALLOW_DATA_ATTR: false,
+                FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'style', 'form', 'input'],
+                FORBID_ATTR: ['onerror', 'onclick', 'onload', 'onmouseover', 'onfocus', 'onblur'],
+                ADD_ATTR: ['target'],
+                SAFE_FOR_TEMPLATES: true
+            });
+        }
+        
+        // Fallback: Basic manual sanitization if DOMPurify not loaded
+        return html
             .replace(/<script[^>]*>.*?<\/script>/gi, '')
             .replace(/<iframe[^>]*>.*?<\/iframe>/gi, '')
             .replace(/<style[^>]*>.*?<\/style>/gi, '')
-            .replace(/on\w+="[^"]*"/gi, '')
-            .replace(/on\w+='[^']*'/gi, '');
-        return cleaned;
+            .replace(/<object[^>]*>.*?<\/object>/gi, '')
+            .replace(/<embed[^>]*>/gi, '')
+            .replace(/on\w+\s*=\s*"[^"]*"/gi, '')
+            .replace(/on\w+\s*=\s*'[^']*'/gi, '')
+            .replace(/javascript:/gi, '');
     }
 }
 
