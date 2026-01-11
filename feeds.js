@@ -26,32 +26,23 @@ const API_SOURCES = {
     ],
     
     de: [
-        // Science & Research - Full-Text Blogs
+        // Science & Research - Full-Text Blogs (2)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scienceblogs.de/feed/', type: 'rss2json', category: 'science', source: 'Scienceblogs' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scilogs.spektrum.de/feed/', type: 'rss2json', category: 'science', source: 'SciLogs' },
         
-        // Essays & Longform Journalism - Garantiert Full-Text
+        // Essays & Longform Journalism - Garantiert Full-Text (4)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.carta.info/feed/', type: 'rss2json', category: 'essay', source: 'Carta' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', type: 'rss2json', category: 'essay', source: 'Der Freitag' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.praefaktisch.de/feed/', type: 'rss2json', category: 'essay', source: 'Präfaktisch' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', type: 'rss2json', category: 'essay', source: 'Geschichte der Gegenwart' },
         
-        // Tech & Digital Rights - Full Articles
+        // Tech & Digital Rights - Full Articles (3)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', type: 'rss2json', category: 'technology', source: 'Netzpolitik' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.telepolis.de/news-atom.xml', type: 'rss2json', category: 'technology', source: 'Telepolis' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/developer/rss/news-atom.xml', type: 'rss2json', category: 'technology', source: 'heise Developer' },
         
-        // Culture & Criticism - Echte Artikel, keine Werbung
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.merkur-zeitschrift.de/feed/', type: 'rss2json', category: 'culture', source: 'Merkur' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.soziopolis.de/feed/', type: 'rss2json', category: 'essay', source: 'Soziopolis' },
-        
-        // Philosophy & Academia
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://philosophie.ch/feed', type: 'rss2json', category: 'essay', source: 'Philosophie.ch' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.theorieblog.de/index.php/feed/', type: 'rss2json', category: 'essay', source: 'Theorieblog' },
-        
-        // Independent Blogs - Full Content
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.dasfilter.com/feed', type: 'rss2json', category: 'culture', source: 'Das Filter' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.fluter.de/feed', type: 'rss2json', category: 'culture', source: 'fluter' }
+        // Culture - Full Text (1)
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.merkur-zeitschrift.de/feed/', type: 'rss2json', category: 'culture', source: 'Merkur' }
     ],
     
     fr: [
