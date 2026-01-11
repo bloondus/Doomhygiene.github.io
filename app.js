@@ -179,18 +179,42 @@ class DoomHygieneApp {
 
         try {
             const language = this.elements.languageSelector.value;
-            const newArticles = await loadFeedsForLanguage(language, (progress) => {
-                // Update progress bar
+            let appStarted = false;
+            
+            const articles = await loadFeedsForLanguage(language, (progress) => {
+                // Update loading screen progress
                 if (this.elements.progressFill) {
                     this.updateProgress(progress);
                 }
+                
+                // PHASE 1 COMPLETE: Start app immediately with first batch
+                if (progress.articles && !progress.complete && !appStarted) {
+                    console.log(`🚀 Starting app with ${progress.articles.length} articles from Phase 1`);
+                    this.articles = progress.articles;
+                    this.hasMoreArticles = true;
+                    this.elements.articlesContainer.innerHTML = '';
+                    this.renderArticles();
+                    this.hideStartupScreen();
+                    appStarted = true;
+                }
+                
+                // PHASE 2 COMPLETE: Add more articles in background
+                if (progress.articles && progress.complete) {
+                    console.log(`➕ Adding ${progress.articles.length} more articles from Phase 2`);
+                    this.articles.push(...progress.articles);
+                    
+                    // Show notification
+                    this.showNotification(`${progress.articles.length} neue Artikel geladen!`);
+                }
             });
-            this.articles = newArticles;
-            this.hasMoreArticles = this.articles.length > 0;
             
-            // Clear skeleton and render real articles
-            this.elements.articlesContainer.innerHTML = '';
-            this.renderArticles();
+            // Fallback: If phase 1 callback didn't fire, use returned articles
+            if (!appStarted && articles && articles.length > 0) {
+                this.articles = articles;
+                this.hasMoreArticles = true;
+                this.elements.articlesContainer.innerHTML = '';
+                this.renderArticles();
+            }
             
         } catch (error) {
             console.error('Error loading articles:', error);
@@ -459,6 +483,18 @@ class DoomHygieneApp {
     updateBookmarkCount() {
         const count = Storage.get(STORAGE_KEYS.BOOKMARKS).length;
         this.elements.bookmarkCount.textContent = count;
+    }
+    
+    showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('fade-out');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
     }
 
     showLoader() {

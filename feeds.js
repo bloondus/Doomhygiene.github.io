@@ -1,91 +1,64 @@
-// Curated Quality Sources - Science, Culture, Art, Music, Research
-const API_SOURCES = {
+// Curated Quality Sources - 2-Phase Loading Strategy
+// Phase 1: Fast sources (3-5s) - App starts immediately
+// Phase 2: Slower sources (background) - Load while user reads
+
+const PRIORITY_SOURCES = {
     en: [
-        // Tech & Innovation - Full Stories
         { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
-        
-        // Science & Research - Full Articles
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quantamagazine.org/feed/', type: 'rss2json', category: 'science', source: 'Quanta Magazine' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://nautil.us/feed/', type: 'rss2json', category: 'science', source: 'Nautilus' },
-        
-        // Essays & Longform
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.themarginalian.org/feed/', type: 'rss2json', category: 'essay', source: 'The Marginalian' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://longreads.com/feed/', type: 'rss2json', category: 'essay', source: 'Longreads' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.ribbonfarm.com/feed/', type: 'rss2json', category: 'essay', source: 'Ribbonfarm' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://aeon.co/feed.rss', type: 'rss2json', category: 'essay', source: 'Aeon' },
-        
-        // Literature - Full Reviews & Essays
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://lithub.com/feed/', type: 'rss2json', category: 'literature', source: 'Literary Hub' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.theparisreview.org/blog/feed/', type: 'rss2json', category: 'literature', source: 'Paris Review' },
-        
-        // Art & Culture
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://hyperallergic.com/feed/', type: 'rss2json', category: 'art', source: 'Hyperallergic' },
-        
-        // Critical Thinking
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.lrb.co.uk/feeds/lrb', type: 'rss2json', category: 'essay', source: 'London Review of Books' }
     ],
     
     de: [
-        // Science & Research - Full-Text Blogs (2)
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scienceblogs.de/feed/', type: 'rss2json', category: 'science', source: 'Scienceblogs' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scilogs.spektrum.de/feed/', type: 'rss2json', category: 'science', source: 'SciLogs' },
-        
-        // Essays & Longform Journalism - Garantiert Full-Text (4)
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.carta.info/feed/', type: 'rss2json', category: 'essay', source: 'Carta' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', type: 'rss2json', category: 'essay', source: 'Der Freitag' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.praefaktisch.de/feed/', type: 'rss2json', category: 'essay', source: 'Präfaktisch' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', type: 'rss2json', category: 'essay', source: 'Geschichte der Gegenwart' },
-        
-        // Tech & Digital Rights - Full Articles (3)
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', type: 'rss2json', category: 'technology', source: 'Netzpolitik' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.telepolis.de/news-atom.xml', type: 'rss2json', category: 'technology', source: 'Telepolis' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/developer/rss/news-atom.xml', type: 'rss2json', category: 'technology', source: 'heise Developer' },
-        
-        // Culture - Full Text (1)
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.merkur-zeitschrift.de/feed/', type: 'rss2json', category: 'culture', source: 'Merkur' }
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scienceblogs.de/feed/', type: 'rss2json', category: 'science', source: 'Scienceblogs' },
+    ],
+    
+    fr: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
+    es: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
+    it: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
+    ja: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
+    ko: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
+    zh: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
+};
+
+const SECONDARY_SOURCES = {
+    en: [
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.themarginalian.org/feed/', type: 'rss2json', category: 'essay', source: 'The Marginalian' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quantamagazine.org/feed/', type: 'rss2json', category: 'science', source: 'Quanta Magazine' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://aeon.co/feed.rss', type: 'rss2json', category: 'essay', source: 'Aeon' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://lithub.com/feed/', type: 'rss2json', category: 'literature', source: 'Literary Hub' },
+    ],
+    
+    de: [
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.carta.info/feed/', type: 'rss2json', category: 'essay', source: 'Carta' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scilogs.spektrum.de/feed/', type: 'rss2json', category: 'science', source: 'SciLogs' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', type: 'rss2json', category: 'essay', source: 'Der Freitag' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', type: 'rss2json', category: 'essay', source: 'Geschichte der Gegenwart' },
     ],
     
     fr: [
-        // Culture & Science
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.lemonde.fr/culture/rss_full.xml', type: 'rss2json', category: 'culture', source: 'Le Monde Culture' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.sciencesetavenir.fr/rss.xml', type: 'rss2json', category: 'science', source: 'Sciences et Avenir' },
-        
-        // Art
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.beauxarts.com/feed/', type: 'rss2json', category: 'art', source: 'Beaux Arts' },
-        
-        // Tech
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     es: [
-        // Culture & Science
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://elpais.com/rss/cultura/portada.xml', type: 'rss2json', category: 'culture', source: 'El País Cultura' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.agenciasinc.es/RSS', type: 'rss2json', category: 'science', source: 'SINC' },
-        
-        // Tech
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     it: [
-        // Culture & Science
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.repubblica.it/rss/cultura/rss2.0.xml', type: 'rss2json', category: 'culture', source: 'Repubblica Cultura' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.ansa.it/sito/notizie/cultura/cultura_rss.xml', type: 'rss2json', category: 'culture', source: 'ANSA Cultura' },
-        
-        // Tech
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
     ],
     
     ja: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www3.nhk.or.jp/rss/news/cat0.xml', type: 'rss2json', category: 'culture', source: 'NHK' }
     ],
     
-    ko: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }
-    ],
+    ko: [],
     
     zh: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://cn.nytimes.com/rss.html', type: 'rss2json', category: 'culture', source: 'NY Times Chinese' }
     ]
 };
@@ -167,26 +140,91 @@ class FeedParser {
 }
 
 async function loadFeedsForLanguage(language, onProgress = null) {
-    const sources = API_SOURCES[language] || API_SOURCES.en;
+    const prioritySources = PRIORITY_SOURCES[language] || PRIORITY_SOURCES.en;
+    const secondarySources = SECONDARY_SOURCES[language] || SECONDARY_SOURCES.en;
     const parser = new FeedParser();
-    const allArticles = [];
     
-    console.log(`⚡ Loading ${sources.length} sources for language: ${language}`);
+    console.log(`⚡ PHASE 1: Loading ${prioritySources.length} priority sources for ${language}`);
     const startTime = performance.now();
     
     // Initial Progress
     if (onProgress) {
         onProgress({
-            total: sources.length,
+            total: prioritySources.length + secondarySources.length,
             loaded: 0,
             status: 'Verbinde mit Quellen...',
-            percentage: 0
+            percentage: 0,
+            phase: 1
         });
     }
 
-    // Load sources in chunks of 3 to prevent browser freeze
+    // PHASE 1: Load priority sources (fast, ~3-5s)
+    const priorityArticles = await loadSourceBatch(
+        prioritySources, 
+        parser, 
+        onProgress, 
+        0, 
+        50,
+        prioritySources.length + secondarySources.length,
+        'priority'
+    );
+    
+    const phase1Time = performance.now() - startTime;
+    console.log(`✅ PHASE 1 DONE: ${priorityArticles.length} articles in ${phase1Time.toFixed(0)}ms`);
+    
+    // Return Phase 1 articles immediately so app can start
+    if (onProgress) {
+        onProgress({
+            total: prioritySources.length + secondarySources.length,
+            loaded: prioritySources.length,
+            status: 'App bereit!',
+            percentage: 50,
+            phase: 1,
+            articles: shuffleArray(priorityArticles),
+            complete: false
+        });
+    }
+    
+    // PHASE 2: Load secondary sources in background (slower, ~30-90s)
+    console.log(`🔄 PHASE 2: Loading ${secondarySources.length} secondary sources in background...`);
+    
+    // Small delay before Phase 2 starts
+    setTimeout(async () => {
+        const secondaryArticles = await loadSourceBatch(
+            secondarySources,
+            parser,
+            onProgress,
+            50,
+            100,
+            prioritySources.length + secondarySources.length,
+            'secondary'
+        );
+        
+        const totalTime = performance.now() - startTime;
+        console.log(`✅ PHASE 2 DONE: ${secondaryArticles.length} more articles in ${totalTime.toFixed(0)}ms total`);
+        
+        // Notify about new articles loaded
+        if (onProgress) {
+            onProgress({
+                total: prioritySources.length + secondarySources.length,
+                loaded: prioritySources.length + secondarySources.length,
+                status: 'Alle Artikel geladen!',
+                percentage: 100,
+                phase: 2,
+                articles: shuffleArray(secondaryArticles),
+                complete: true
+            });
+        }
+    }, 100);
+    
+    // Return Phase 1 articles immediately
+    return priorityArticles;
+}
+
+async function loadSourceBatch(sources, parser, onProgress, startPercentage, endPercentage, totalSources, phase) {
+    const allArticles = [];
     const CHUNK_SIZE = 3;
-    let loadedCount = 0;
+    let loadedInBatch = 0;
     
     for (let i = 0; i < sources.length; i += CHUNK_SIZE) {
         const chunk = sources.slice(i, i + CHUNK_SIZE);
@@ -214,15 +252,13 @@ async function loadFeedsForLanguage(language, onProgress = null) {
                 try {
                     if (source.type === 'hn') {
                         articles = parser.parseHackerNews(data, source.source, source.category);
-                    } else if (source.type === 'lobsters') {
-                        articles = parser.parseLobsters(data, source.source, source.category);
                     } else if (source.type === 'rss2json') {
                         articles = parser.parseRSS2JSON(data, source.source, source.category);
                     }
                     
                     if (articles.length > 0) {
                         allArticles.push(...articles);
-                        console.log(`✓ Loaded ${articles.length} articles from ${source.source}`);
+                        console.log(`✓ [${phase}] Loaded ${articles.length} articles from ${source.source}`);
                     }
                 } catch (error) {
                     console.error(`Failed to parse ${source.source}:`, error);
@@ -230,46 +266,31 @@ async function loadFeedsForLanguage(language, onProgress = null) {
             } else {
                 const sourceIndex = i + chunkIndex;
                 if (sourceIndex < sources.length) {
-                    console.warn(`✗ Failed to load ${sources[sourceIndex].source}:`, result.reason?.message || 'Unknown error');
+                    console.warn(`✗ [${phase}] Failed to load ${sources[sourceIndex].source}:`, result.reason?.message || 'Unknown error');
                 }
             }
             
-            // Update progress after each source
-            loadedCount++;
+            loadedInBatch++;
+            
+            // Calculate progress within the batch's percentage range
+            const progress = startPercentage + (loadedInBatch / sources.length) * (endPercentage - startPercentage);
+            
             if (onProgress) {
                 onProgress({
-                    total: sources.length,
-                    loaded: loadedCount,
-                    status: 'Lädt Artikel...',
-                    percentage: Math.round((loadedCount / sources.length) * 100)
+                    total: totalSources,
+                    loaded: (phase === 'priority' ? loadedInBatch : sources.length + loadedInBatch),
+                    status: phase === 'priority' ? 'Lädt Artikel...' : 'Lädt mehr Artikel...',
+                    percentage: Math.round(progress),
+                    phase: phase === 'priority' ? 1 : 2
                 });
             }
         });
         
-        // Small delay between chunks to allow UI updates
+        // Small delay between chunks
         await new Promise(resolve => setTimeout(resolve, 10));
     }
     
-    const loadTime = performance.now() - startTime;
-    console.log(`✅ Total: ${allArticles.length} articles loaded in ${loadTime.toFixed(0)}ms`);
-    
-    // Final Progress
-    if (onProgress) {
-        onProgress({
-            total: sources.length,
-            loaded: sources.length,
-            status: 'Fertig!',
-            percentage: 100
-        });
-    }
-    
-    if (allArticles.length === 0) {
-        console.error('❌ No articles loaded from any source!');
-        throw new Error('No articles could be loaded. Please try again later.');
-    }
-
-    // Shuffle articles for mixed feed experience
-    return shuffleArray(allArticles);
+    return allArticles;
 }
 
 function shuffleArray(array) {

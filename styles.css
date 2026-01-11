@@ -939,3 +939,46 @@ header .container {
         gap: var(--spacing-xl);
     }
 }
+
+/* Notification Toast */
+.notification {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(102, 126, 234, 0.95);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    z-index: 9998;
+    animation: slideUpNotification 0.3s ease-out;
+    font-weight: 500;
+    font-size: 0.95rem;
+    max-width: 90%;
+    text-align: center;
+}
+
+.notification.fade-out {
+    animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes slideUpNotification {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    .notification {
+        bottom: 1rem;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.875rem;
+    }
+}
