@@ -1,20 +1,28 @@
-// Curated Quality Sources - 2-Phase Loading Strategy
-// Phase 1: Fast sources (3-5s) - App starts immediately
-// Phase 2: Slower sources (background) - Load while user reads
+// Free & Independent Media - Full Articles or Substantial Summaries
+// NO TEASERS - Only sources with complete content or full summaries (200+ words)
+// Phase 1: Priority sources (fast loading)
+// Phase 2: Secondary sources (background loading)
 
 const PRIORITY_SOURCES = {
+    de: [
+        // ✅ Voller Artikel-Text im Feed
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', type: 'rss2json', category: 'technology', source: 'Netzpolitik.org' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.nachdenkseiten.de/?feed=atom', type: 'rss2json', category: 'politics', source: 'NachDenkSeiten' },
+    ],
+    
     en: [
         { url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://longreads.com/feed/', type: 'rss2json', category: 'essay', source: 'Longreads' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://aeon.co/feed/essays', type: 'rss2json', category: 'philosophy', source: 'Aeon' },
     ],
     
-    de: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', type: 'rss2json', category: 'technology', source: 'Netzpolitik' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scienceblogs.de/feed/', type: 'rss2json', category: 'science', source: 'Scienceblogs' },
+    fr: [
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://reporterre.net/spip.php?page=backend', type: 'rss2json', category: 'environment', source: 'Reporterre' },
     ],
     
-    fr: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
-    es: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
+    es: [
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://ctxt.es/rss.xml', type: 'rss2json', category: 'culture', source: 'CTXT' },
+    ],
+    
     it: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
     ja: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
     ko: [{ url: 'https://api.hnpwa.com/v0/news/1.json', type: 'hn', category: 'technology', source: 'Hacker News' }],
@@ -22,45 +30,29 @@ const PRIORITY_SOURCES = {
 };
 
 const SECONDARY_SOURCES = {
-    en: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.themarginalian.org/feed/', type: 'rss2json', category: 'essay', source: 'The Marginalian' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quantamagazine.org/feed/', type: 'rss2json', category: 'science', source: 'Quanta Magazine' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://aeon.co/feed.rss', type: 'rss2json', category: 'essay', source: 'Aeon' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://lithub.com/feed/', type: 'rss2json', category: 'literature', source: 'Literary Hub' },
+    de: [
+        // ✅ Vollständige Zusammenfassungen (300-500 Wörter) oder voller Text
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', type: 'rss2json', category: 'essay', source: 'Der Freitag' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', type: 'rss2json', category: 'history', source: 'Geschichte der Gegenwart' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/tp/rss/news.xml', type: 'rss2json', category: 'technology', source: 'Telepolis' },
     ],
     
-    de: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.carta.info/feed/', type: 'rss2json', category: 'essay', source: 'Carta' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scilogs.spektrum.de/feed/', type: 'rss2json', category: 'science', source: 'SciLogs' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', type: 'rss2json', category: 'essay', source: 'Der Freitag' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', type: 'rss2json', category: 'essay', source: 'Geschichte der Gegenwart' },
+    en: [
+        // ✅ Voller Artikel-Text (2000-5000+ Wörter!)
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.themarginalian.org/feed/', type: 'rss2json', category: 'culture', source: 'The Marginalian' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quantamagazine.org/feed/', type: 'rss2json', category: 'science', source: 'Quanta Magazine' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://longreads.com/feed/', type: 'rss2json', category: 'essay', source: 'Longreads' },
     ],
     
     fr: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.lemonde.fr/culture/rss_full.xml', type: 'rss2json', category: 'culture', source: 'Le Monde Culture' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.sciencesetavenir.fr/rss.xml', type: 'rss2json', category: 'science', source: 'Sciences et Avenir' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.beauxarts.com/feed/', type: 'rss2json', category: 'art', source: 'Beaux Arts' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.lemonde-diplomatique.fr/rss', type: 'rss2json', category: 'politics', source: 'Le Monde Diplomatique' },
     ],
     
-    es: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://elpais.com/rss/cultura/portada.xml', type: 'rss2json', category: 'culture', source: 'El País Cultura' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.agenciasinc.es/RSS', type: 'rss2json', category: 'science', source: 'SINC' },
-    ],
-    
-    it: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.repubblica.it/rss/cultura/rss2.0.xml', type: 'rss2json', category: 'culture', source: 'Repubblica Cultura' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.ansa.it/sito/notizie/cultura/cultura_rss.xml', type: 'rss2json', category: 'culture', source: 'ANSA Cultura' },
-    ],
-    
-    ja: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www3.nhk.or.jp/rss/news/cat0.xml', type: 'rss2json', category: 'culture', source: 'NHK' }
-    ],
-    
+    es: [],
+    it: [],
+    ja: [],
     ko: [],
-    
-    zh: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://cn.nytimes.com/rss.html', type: 'rss2json', category: 'culture', source: 'NY Times Chinese' }
-    ]
+    zh: [],
 };
 
 class FeedParser {
