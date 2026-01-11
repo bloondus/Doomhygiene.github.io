@@ -30,6 +30,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--font-sans);
     background: var(--color-bg);
@@ -37,6 +41,24 @@ body {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    
+    /* Force GPU acceleration for smooth scrolling */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Prevent white flash during scroll */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg);
+    z-index: -1;
 }
 
 /* Startup Loading Screen */
@@ -508,6 +530,10 @@ header .container {
     margin: 0 auto;
     padding: var(--spacing-lg) var(--spacing-sm);
     padding-bottom: 6rem;
+    
+    /* Enable hardware acceleration for smooth scrolling */
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
 }
 
 /* Articles Grid */
@@ -525,8 +551,15 @@ header .container {
     transition: var(--transition);
     opacity: 0;
     animation: fadeIn 0.6s ease-out forwards;
-    will-change: transform;
+    
+    /* Performance optimizations for smooth scrolling */
+    will-change: transform, opacity;
     transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    
+    /* Prevent layout shifts during scroll */
+    contain: layout style paint;
 }
 
 /* Loading skeleton */

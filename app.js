@@ -6,6 +6,7 @@ class DoomHygieneApp {
         this.isLoading = false;
         this.hasMoreArticles = true;
         this.observer = null;
+        this.loadMoreTimeout = null;
         
         this.elements = {
             articlesContainer: document.getElementById('articles'),
@@ -254,7 +255,7 @@ class DoomHygieneApp {
     renderArticles() {
         const articlesToRender = this.articles.slice(
             this.displayedArticles,
-            this.displayedArticles + CONFIG.articlesPerLoad
+            this.displayedArticles + 5  // Reduced from 10 to 5 for smoother scrolling
         );
 
         // Use DocumentFragment for better performance
@@ -265,40 +266,56 @@ class DoomHygieneApp {
             fragment.appendChild(articleElement);
         });
 
-        this.elements.articlesContainer.appendChild(fragment);
-        this.displayedArticles += articlesToRender.length;
+        // Batch DOM update with requestAnimationFrame
+        requestAnimationFrame(() => {
+            this.elements.articlesContainer.appendChild(fragment);
+            this.displayedArticles += articlesToRender.length;
 
-        if (this.displayedArticles >= this.articles.length) {
-            this.hasMoreArticles = false;
-            this.showEndMessage();
-        }
-        
-        // Setup intersection observer for lazy loading
-        this.setupLazyLoading();
+            if (this.displayedArticles >= this.articles.length) {
+                this.hasMoreArticles = false;
+                this.showEndMessage();
+            }
+            
+            // Setup intersection observer for lazy loading
+            this.setupLazyLoading();
+        });
     }
     
     setupLazyLoading() {
-        if (this.observer) return;
+        if (this.observer) {
+            this.observer.disconnect();
+        }
         
         this.observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && this.hasMoreArticles && !this.isLoading) {
-                    this.renderArticles();
+                    // Debounce: Only load more after 200ms to prevent rapid re-renders
+                    if (this.loadMoreTimeout) clearTimeout(this.loadMoreTimeout);
+                    this.loadMoreTimeout = setTimeout(() => {
+                        this.renderArticles();
+                    }, 200);
                 }
             });
-        }, { rootMargin: '400px' });
+        }, { 
+            rootMargin: '800px',  // Load earlier to prevent white space
+            threshold: 0.1        // Trigger at 10% visibility
+        });
         
-        // Observe last article
-        const lastArticle = this.elements.articlesContainer.lastElementChild;
-        if (lastArticle && lastArticle.classList.contains('article-card')) {
-            this.observer.observe(lastArticle);
-        }
+        // Observe last 3 articles for smoother loading
+        const articles = this.elements.articlesContainer.querySelectorAll('.article-card');
+        const lastThree = Array.from(articles).slice(-3);
+        lastThree.forEach(article => {
+            this.observer.observe(article);
+        });
     }
 
     createArticleElement(article) {
         const card = document.createElement('article');
         card.className = 'article-card';
         card.dataset.articleId = article.id;
+        
+        // Add will-change for better scroll performance
+        card.style.willChange = 'transform';
 
         // Check if article is read
         if (Storage.has(STORAGE_KEYS.READ, article.id)) {
