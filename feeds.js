@@ -184,62 +184,71 @@ async function loadFeedsForLanguage(language, onProgress = null) {
         });
     }
 
-    // Load all sources in parallel with 8 second timeout each
+    // Load sources in chunks of 3 to prevent browser freeze
+    const CHUNK_SIZE = 3;
     let loadedCount = 0;
-    const results = await Promise.allSettled(
-        sources.map((source, index) => 
-            fetch(source.url, { 
-                signal: AbortSignal.timeout(8000)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Update progress after each source loads
-                loadedCount++;
-                if (onProgress) {
-                    onProgress({
-                        total: sources.length,
-                        loaded: loadedCount,
-                        status: 'Lädt Artikel...',
-                        percentage: Math.round((loadedCount / sources.length) * 100)
-                    });
-                }
-                return { data, source };
-            })
-        )
-    );
     
-    results.forEach((result, index) => {
-        if (result.status === 'fulfilled') {
-            const { data, source } = result.value;
-            let articles = [];
-            
-            try {
-                if (source.type === 'hn') {
-                    articles = parser.parseHackerNews(data, source.source, source.category);
-                } else if (source.type === 'lobsters') {
-                    articles = parser.parseLobsters(data, source.source, source.category);
-                } else if (source.type === 'rss2json') {
-                    articles = parser.parseRSS2JSON(data, source.source, source.category);
-                }
+    for (let i = 0; i < sources.length; i += CHUNK_SIZE) {
+        const chunk = sources.slice(i, i + CHUNK_SIZE);
+        
+        const results = await Promise.allSettled(
+            chunk.map((source) => 
+                fetch(source.url, { 
+                    signal: AbortSignal.timeout(8000)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => ({ data, source }))
+            )
+        );
+        
+        results.forEach((result, chunkIndex) => {
+            if (result.status === 'fulfilled') {
+                const { data, source } = result.value;
+                let articles = [];
                 
-                if (articles.length > 0) {
-                    allArticles.push(...articles);
-                    console.log(`✓ Loaded ${articles.length} articles from ${source.source}`);
-                } else {
-                    console.warn(`⚠ No articles from ${source.source}`);
+                try {
+                    if (source.type === 'hn') {
+                        articles = parser.parseHackerNews(data, source.source, source.category);
+                    } else if (source.type === 'lobsters') {
+                        articles = parser.parseLobsters(data, source.source, source.category);
+                    } else if (source.type === 'rss2json') {
+                        articles = parser.parseRSS2JSON(data, source.source, source.category);
+                    }
+                    
+                    if (articles.length > 0) {
+                        allArticles.push(...articles);
+                        console.log(`✓ Loaded ${articles.length} articles from ${source.source}`);
+                    }
+                } catch (error) {
+                    console.error(`Failed to parse ${source.source}:`, error);
                 }
-            } catch (error) {
-                console.error(`Failed to parse ${source.source}:`, error);
+            } else {
+                const sourceIndex = i + chunkIndex;
+                if (sourceIndex < sources.length) {
+                    console.warn(`✗ Failed to load ${sources[sourceIndex].source}:`, result.reason?.message || 'Unknown error');
+                }
             }
-        } else {
-            console.warn(`✗ Failed to load ${sources[index].source}:`, result.reason?.message || 'Unknown error');
-        }
-    });
+            
+            // Update progress after each source
+            loadedCount++;
+            if (onProgress) {
+                onProgress({
+                    total: sources.length,
+                    loaded: loadedCount,
+                    status: 'Lädt Artikel...',
+                    percentage: Math.round((loadedCount / sources.length) * 100)
+                });
+            }
+        });
+        
+        // Small delay between chunks to allow UI updates
+        await new Promise(resolve => setTimeout(resolve, 10));
+    }
     
     const loadTime = performance.now() - startTime;
     console.log(`✅ Total: ${allArticles.length} articles loaded in ${loadTime.toFixed(0)}ms`);
