@@ -1,13 +1,14 @@
-// Free & Independent Media Sources - Clean & Simple
-// NO Loading Screen - Direct to content
+// Free & Independent Media - 100% Serious & No Paywall
+// Removed: NachDenkSeiten (conspiracy theories), Telepolis (borderline)
 
 const SOURCES = {
     de: [
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', source: 'Netzpolitik.org', category: 'Tech' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.nachdenkseiten.de/?feed=atom', source: 'NachDenkSeiten', category: 'Politik' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', source: 'Der Freitag', category: 'Essay' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', source: 'Geschichte der Gegenwart', category: 'Geschichte' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.heise.de/tp/rss/news.xml', source: 'Telepolis', category: 'Tech' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', source: 'Der Freitag', category: 'Essay' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://uebermedien.de/feed/', source: 'Übermedien', category: 'Medienkritik' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://carta.info/feed/', source: 'Carta', category: 'Gesellschaft' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scienceblogs.de/feed/', source: 'Scienceblogs', category: 'Wissenschaft' },
     ],
     
     en: [
