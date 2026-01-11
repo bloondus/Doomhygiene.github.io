@@ -376,7 +376,7 @@ class App {
             if (e.key === 'ArrowDown' || e.key === ' ') {
                 e.preventDefault();
                 const articles = Array.from(document.querySelectorAll('.article-card'));
-                const current = this.getCurrentArticle(articles);
+                const current = this.getCurrentVisibleArticle(articles);
                 if (!current) return;
                 const currentIndex = articles.indexOf(current);
                 const nextIndex = Math.min(currentIndex + 1, articles.length - 1);
@@ -386,7 +386,7 @@ class App {
             else if (e.key === 'ArrowUp') {
                 e.preventDefault();
                 const articles = Array.from(document.querySelectorAll('.article-card'));
-                const current = this.getCurrentArticle(articles);
+                const current = this.getCurrentVisibleArticle(articles);
                 if (!current) return;
                 const currentIndex = articles.indexOf(current);
                 const prevIndex = Math.max(currentIndex - 1, 0);
@@ -406,8 +406,8 @@ class App {
         const articles = Array.from(document.querySelectorAll('.article-card'));
         if (articles.length === 0) return;
         
-        // Find current article
-        const current = this.getCurrentArticle(articles);
+        // Find article at top of viewport (not middle!)
+        const current = this.getTopArticle(articles);
         if (!current) return;
         
         const currentIndex = articles.indexOf(current);
@@ -437,7 +437,28 @@ class App {
         }
     }
     
-    getCurrentArticle(articles) {
+    getTopArticle(articles) {
+        const headerHeight = 80;
+        const viewportTop = window.scrollY + headerHeight;
+        
+        let topArticle = null;
+        
+        for (const article of articles) {
+            const rect = article.getBoundingClientRect();
+            const articleTop = window.scrollY + rect.top;
+            
+            // If article top is above viewport, it's the current one
+            if (articleTop <= viewportTop + 100) {
+                topArticle = article;
+            } else {
+                break;
+            }
+        }
+        
+        return topArticle || articles[0];
+    }
+    
+    getCurrentVisibleArticle(articles) {
         const viewportMiddle = window.scrollY + (window.innerHeight / 2);
         
         let closest = null;
