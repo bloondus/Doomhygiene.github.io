@@ -25,8 +25,13 @@ html {
     scroll-behavior: smooth;
 }
 
-html {
-    scroll-behavior: smooth;
+#articles {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: pan-y;
+}
+
+#articles:active {
+    cursor: grabbing;
 }
 
 body {
@@ -141,8 +146,8 @@ body {
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
     padding: 1.5rem;
-    transition: all 0.3s;
-    user-select: none;
+    transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.3s;
+    will-change: transform;
 }
 
 .article-card:hover {
@@ -150,15 +155,17 @@ body {
     transform: translateY(-2px);
 }
 
-.article-card:active {
-    opacity: 0.95;
-    transform: scale(0.995);
-}
-
-/* Re-enable text selection for content */
+/* Text selection */
 .article-description,
 .article-title a {
     user-select: text;
+    -webkit-user-select: text;
+}
+
+.article-card a,
+.article-card button {
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .article-meta {

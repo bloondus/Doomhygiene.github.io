@@ -238,40 +238,127 @@ class App {
     
     setupSwipeNavigation() {
         const container = this.el.articles;
+        let isSwiping = false;
+        let swipeStartTime = 0;
         
         // Touch events
         container.addEventListener('touchstart', (e) => {
+            // Don't swipe if touching a link or button
+            if (e.target.closest('a, button')) {
+                isSwiping = false;
+                return;
+            }
+            
+            isSwiping = true;
+            swipeStartTime = Date.now();
             this.touchStartX = e.changedTouches[0].screenX;
             this.touchStartY = e.changedTouches[0].screenY;
         }, { passive: true });
 
+        container.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            
+            const currentX = e.changedTouches[0].screenX;
+            const currentY = e.changedTouches[0].screenY;
+            const deltaX = Math.abs(currentX - this.touchStartX);
+            const deltaY = Math.abs(currentY - this.touchStartY);
+            
+            // If horizontal swipe detected, prevent scroll
+            if (deltaX > deltaY && deltaX > 30) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
         container.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+            
+            const swipeDuration = Date.now() - swipeStartTime;
+            
+            // Ignore if touch was too long (probably scrolling/reading)
+            if (swipeDuration > 500) {
+                isSwiping = false;
+                return;
+            }
+            
             this.touchEndX = e.changedTouches[0].screenX;
             this.touchEndY = e.changedTouches[0].screenY;
             this.handleSwipe();
+            isSwiping = false;
         }, { passive: true });
 
         // Mouse events for desktop
         let isMouseDown = false;
+        let mouseStartTime = 0;
         
         container.addEventListener('mousedown', (e) => {
-            // Ignore if clicking on link or button
-            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+            // Don't swipe if clicking a link or button
+            if (e.target.closest('a, button')) {
+                isMouseDown = false;
+                return;
+            }
+            
             isMouseDown = true;
+            mouseStartTime = Date.now();
             this.touchStartX = e.screenX;
             this.touchStartY = e.screenY;
+            container.style.cursor = 'grabbing';
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isMouseDown) return;
+            const deltaX = Math.abs(e.screenX - this.touchStartX);
+            if (deltaX > 30) {
+                e.preventDefault();
+            }
         });
 
         container.addEventListener('mouseup', (e) => {
             if (!isMouseDown) return;
-            isMouseDown = false;
+            
+            const mouseDuration = Date.now() - mouseStartTime;
+            
+            // Ignore if click was too long
+            if (mouseDuration > 500) {
+                isMouseDown = false;
+                container.style.cursor = 'default';
+                return;
+            }
+            
             this.touchEndX = e.screenX;
             this.touchEndY = e.screenY;
             this.handleSwipe();
+            
+            isMouseDown = false;
+            container.style.cursor = 'default';
         });
 
         container.addEventListener('mouseleave', () => {
             isMouseDown = false;
+            container.style.cursor = 'default';
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            // Arrow Down / Space → Next article
+            if (e.key === 'ArrowDown' || e.key === ' ') {
+                e.preventDefault();
+                const articles = Array.from(document.querySelectorAll('.article-card'));
+                const current = this.getCurrentArticle(articles);
+                if (!current) return;
+                const currentIndex = articles.indexOf(current);
+                const nextIndex = Math.min(currentIndex + 1, articles.length - 1);
+                this.scrollToArticle(articles[nextIndex]);
+            }
+            // Arrow Up → Previous article
+            else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                const articles = Array.from(document.querySelectorAll('.article-card'));
+                const current = this.getCurrentArticle(articles);
+                if (!current) return;
+                const currentIndex = articles.indexOf(current);
+                const prevIndex = Math.max(currentIndex - 1, 0);
+                this.scrollToArticle(articles[prevIndex]);
+            }
         });
     }
     
@@ -281,7 +368,7 @@ class App {
         
         // Check if horizontal swipe (not vertical scroll)
         if (Math.abs(deltaX) < this.minSwipeDistance) return;
-        if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+        if (Math.abs(deltaY) > Math.abs(deltaX) * 0.5) return;
         
         const articles = Array.from(document.querySelectorAll('.article-card'));
         if (articles.length === 0) return;
@@ -292,15 +379,28 @@ class App {
         
         const currentIndex = articles.indexOf(current);
         
+        // Visual feedback
+        current.style.transition = 'transform 0.2s ease';
+        
         // Swipe LEFT → Next
-        if (deltaX < 0) {
-            const nextIndex = Math.min(currentIndex + 1, articles.length - 1);
-            this.scrollToArticle(articles[nextIndex]);
+        if (deltaX < -this.minSwipeDistance) {
+            console.log('⬅️ Swipe left → Next article');
+            current.style.transform = 'translateX(-10px)';
+            setTimeout(() => {
+                current.style.transform = '';
+                const nextIndex = Math.min(currentIndex + 1, articles.length - 1);
+                this.scrollToArticle(articles[nextIndex]);
+            }, 100);
         }
         // Swipe RIGHT → Previous
-        else if (deltaX > 0) {
-            const prevIndex = Math.max(currentIndex - 1, 0);
-            this.scrollToArticle(articles[prevIndex]);
+        else if (deltaX > this.minSwipeDistance) {
+            console.log('➡️ Swipe right → Previous article');
+            current.style.transform = 'translateX(10px)';
+            setTimeout(() => {
+                current.style.transform = '';
+                const prevIndex = Math.max(currentIndex - 1, 0);
+                this.scrollToArticle(articles[prevIndex]);
+            }, 100);
         }
     }
     
