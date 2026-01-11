@@ -1,5 +1,5 @@
 // Doom Hygiene - Simple & Clean
-import { loadFeeds } from './feeds-new.js';
+import { loadFeeds } from './feeds.js';
 
 class App {
     constructor() {
