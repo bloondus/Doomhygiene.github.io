@@ -240,11 +240,28 @@ class App {
         const container = this.el.articles;
         let isSwiping = false;
         let swipeStartTime = 0;
+        let startedInSwipeZone = false;
         
         // Touch events
         container.addEventListener('touchstart', (e) => {
             // Don't swipe if touching a link or button
             if (e.target.closest('a, button')) {
+                isSwiping = false;
+                return;
+            }
+            
+            // Check if touch started in swipe zone (left/right 20% of screen)
+            const touchX = e.changedTouches[0].clientX;
+            const screenWidth = window.innerWidth;
+            const swipeZoneWidth = screenWidth * 0.2;
+            
+            startedInSwipeZone = (touchX < swipeZoneWidth) || (touchX > screenWidth - swipeZoneWidth);
+            
+            // OR: Allow swipe from article header/footer
+            const touchedElement = e.target;
+            const isInHeader = touchedElement.closest('.article-meta, .article-title, .article-actions');
+            
+            if (!startedInSwipeZone && !isInHeader) {
                 isSwiping = false;
                 return;
             }
@@ -266,6 +283,9 @@ class App {
             // If horizontal swipe detected, prevent scroll
             if (deltaX > deltaY && deltaX > 30) {
                 e.preventDefault();
+            } else if (deltaY > deltaX) {
+                // Vertical scroll detected, cancel swipe
+                isSwiping = false;
             }
         }, { passive: false });
 
@@ -275,7 +295,7 @@ class App {
             const swipeDuration = Date.now() - swipeStartTime;
             
             // Ignore if touch was too long (probably scrolling/reading)
-            if (swipeDuration > 500) {
+            if (swipeDuration > 300) {
                 isSwiping = false;
                 return;
             }
@@ -293,6 +313,19 @@ class App {
         container.addEventListener('mousedown', (e) => {
             // Don't swipe if clicking a link or button
             if (e.target.closest('a, button')) {
+                isMouseDown = false;
+                return;
+            }
+            
+            // Check if click in swipe zone or header
+            const mouseX = e.clientX;
+            const screenWidth = window.innerWidth;
+            const swipeZoneWidth = screenWidth * 0.2;
+            
+            const inSwipeZone = (mouseX < swipeZoneWidth) || (mouseX > screenWidth - swipeZoneWidth);
+            const inHeader = e.target.closest('.article-meta, .article-title, .article-actions');
+            
+            if (!inSwipeZone && !inHeader) {
                 isMouseDown = false;
                 return;
             }
@@ -318,7 +351,7 @@ class App {
             const mouseDuration = Date.now() - mouseStartTime;
             
             // Ignore if click was too long
-            if (mouseDuration > 500) {
+            if (mouseDuration > 300) {
                 isMouseDown = false;
                 container.style.cursor = 'default';
                 return;
