@@ -7,6 +7,13 @@ class App {
         this.displayed = 0;
         this.batchSize = 10;
         
+        // Swipe navigation
+        this.touchStartX = 0;
+        this.touchStartY = 0;
+        this.touchEndX = 0;
+        this.touchEndY = 0;
+        this.minSwipeDistance = 50;
+        
         this.el = {
             loader: document.getElementById('loader'),
             articles: document.getElementById('articles'),
@@ -34,6 +41,9 @@ class App {
         
         // Setup scroll
         window.addEventListener('scroll', () => this.onScroll());
+        
+        // Setup swipe navigation
+        this.setupSwipeNavigation();
         
         // Load articles
         await this.loadArticles();
@@ -224,6 +234,106 @@ class App {
                 btn.textContent = '🔖 Speichern';
             }
         }
+    }
+    
+    setupSwipeNavigation() {
+        const container = this.el.articles;
+        
+        // Touch events
+        container.addEventListener('touchstart', (e) => {
+            this.touchStartX = e.changedTouches[0].screenX;
+            this.touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        container.addEventListener('touchend', (e) => {
+            this.touchEndX = e.changedTouches[0].screenX;
+            this.touchEndY = e.changedTouches[0].screenY;
+            this.handleSwipe();
+        }, { passive: true });
+
+        // Mouse events for desktop
+        let isMouseDown = false;
+        
+        container.addEventListener('mousedown', (e) => {
+            // Ignore if clicking on link or button
+            if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+            isMouseDown = true;
+            this.touchStartX = e.screenX;
+            this.touchStartY = e.screenY;
+        });
+
+        container.addEventListener('mouseup', (e) => {
+            if (!isMouseDown) return;
+            isMouseDown = false;
+            this.touchEndX = e.screenX;
+            this.touchEndY = e.screenY;
+            this.handleSwipe();
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isMouseDown = false;
+        });
+    }
+    
+    handleSwipe() {
+        const deltaX = this.touchEndX - this.touchStartX;
+        const deltaY = this.touchEndY - this.touchStartY;
+        
+        // Check if horizontal swipe (not vertical scroll)
+        if (Math.abs(deltaX) < this.minSwipeDistance) return;
+        if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+        
+        const articles = Array.from(document.querySelectorAll('.article-card'));
+        if (articles.length === 0) return;
+        
+        // Find current article
+        const current = this.getCurrentArticle(articles);
+        if (!current) return;
+        
+        const currentIndex = articles.indexOf(current);
+        
+        // Swipe LEFT → Next
+        if (deltaX < 0) {
+            const nextIndex = Math.min(currentIndex + 1, articles.length - 1);
+            this.scrollToArticle(articles[nextIndex]);
+        }
+        // Swipe RIGHT → Previous
+        else if (deltaX > 0) {
+            const prevIndex = Math.max(currentIndex - 1, 0);
+            this.scrollToArticle(articles[prevIndex]);
+        }
+    }
+    
+    getCurrentArticle(articles) {
+        const viewportMiddle = window.scrollY + (window.innerHeight / 2);
+        
+        let closest = null;
+        let closestDist = Infinity;
+        
+        articles.forEach(article => {
+            const rect = article.getBoundingClientRect();
+            const articleMiddle = window.scrollY + rect.top + (rect.height / 2);
+            const dist = Math.abs(viewportMiddle - articleMiddle);
+            
+            if (dist < closestDist) {
+                closestDist = dist;
+                closest = article;
+            }
+        });
+        
+        return closest;
+    }
+    
+    scrollToArticle(article) {
+        if (!article) return;
+        
+        const rect = article.getBoundingClientRect();
+        const scrollTop = window.scrollY + rect.top - 80;
+        
+        window.scrollTo({
+            top: scrollTop,
+            behavior: 'smooth'
+        });
     }
     
     hideBookmarks() {

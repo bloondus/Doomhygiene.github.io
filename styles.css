@@ -25,6 +25,10 @@ html {
     scroll-behavior: smooth;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--font-sans);
     background: var(--color-bg);
@@ -138,11 +142,23 @@ body {
     border-radius: var(--radius);
     padding: 1.5rem;
     transition: all 0.3s;
+    user-select: none;
 }
 
 .article-card:hover {
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
     transform: translateY(-2px);
+}
+
+.article-card:active {
+    opacity: 0.95;
+    transform: scale(0.995);
+}
+
+/* Re-enable text selection for content */
+.article-description,
+.article-title a {
+    user-select: text;
 }
 
 .article-meta {
