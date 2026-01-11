@@ -172,12 +172,58 @@ class App {
         } else {
             this.el.bookmarksList.innerHTML = '';
             bookmarks.forEach(article => {
-                const card = this.createCard(article);
-                this.el.bookmarksList.appendChild(card);
+                const item = this.createBookmarkItem(article);
+                this.el.bookmarksList.appendChild(item);
             });
         }
         
         this.el.bookmarksPanel.classList.add('open');
+    }
+    
+    createBookmarkItem(article) {
+        const item = document.createElement('div');
+        item.className = 'bookmark-item';
+        item.innerHTML = `
+            <div class="bookmark-content">
+                <div class="bookmark-meta">
+                    <span class="bookmark-source">${article.source}</span>
+                    <span class="bookmark-category">${article.category}</span>
+                </div>
+                <a href="${article.link}" target="_blank" rel="noopener noreferrer" class="bookmark-title">
+                    ${article.title}
+                </a>
+            </div>
+            <button class="btn-remove" data-id="${article.id}" title="Entfernen">✕</button>
+        `;
+        
+        // Add remove handler
+        const removeBtn = item.querySelector('.btn-remove');
+        removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.removeBookmark(article.id);
+        });
+        
+        return item;
+    }
+    
+    removeBookmark(id) {
+        const bookmarks = this.getBookmarks();
+        const filtered = bookmarks.filter(b => b.id !== id);
+        localStorage.setItem('bookmarks', JSON.stringify(filtered));
+        
+        // Update UI
+        this.updateBookmarkCount();
+        this.showBookmarks();
+        
+        // Update button in main feed if visible
+        const card = document.querySelector(`[data-id="${id}"]`);
+        if (card) {
+            const btn = card.querySelector('[data-action="bookmark"]');
+            if (btn) {
+                btn.classList.remove('active');
+                btn.textContent = '🔖 Speichern';
+            }
+        }
     }
     
     hideBookmarks() {
