@@ -1,31 +1,30 @@
-// Free & Independent Media - 100% Serious & No Paywall
-// Removed: NachDenkSeiten (conspiracy theories), Telepolis (borderline)
+// Only 10/10 World-Class Sources - No Paywall
+// Focus: Investigative journalism, academic essays, science
 
 const SOURCES = {
     de: [
+        // 10/10 - Top German Sources
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', source: 'Netzpolitik.org', category: 'Tech' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', source: 'Geschichte der Gegenwart', category: 'Geschichte' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.freitag.de/@@RSS', source: 'Der Freitag', category: 'Essay' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://uebermedien.de/feed/', source: 'Übermedien', category: 'Medienkritik' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://carta.info/feed/', source: 'Carta', category: 'Gesellschaft' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://scienceblogs.de/feed/', source: 'Scienceblogs', category: 'Wissenschaft' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://correctiv.org/feed/', source: 'Correctiv', category: 'Recherche' },
     ],
     
     en: [
-        { url: 'https://api.hnpwa.com/v0/news/1.json', source: 'Hacker News', category: 'Tech', type: 'hn' },
+        // 10/10 - World-Class English Sources
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://aeon.co/feed/essays', source: 'Aeon', category: 'Philosophy' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.themarginalian.org/feed/', source: 'The Marginalian', category: 'Culture' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.quantamagazine.org/feed/', source: 'Quanta Magazine', category: 'Science' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://longreads.com/feed/', source: 'Longreads', category: 'Essay' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.propublica.org/feeds/propublica/main', source: 'ProPublica', category: 'Investigation' },
+        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://theintercept.com/feed/', source: 'The Intercept', category: 'Investigation' },
     ],
     
     fr: [
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://reporterre.net/spip.php?page=backend', source: 'Reporterre', category: 'Écologie' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.lemonde-diplomatique.fr/rss', source: 'Le Monde Diplomatique', category: 'Politique' },
     ],
     
     es: [
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://ctxt.es/rss.xml', source: 'CTXT', category: 'Cultura' },
+        { url: 'https://api.hnpwa.com/v0/news/1.json', source: 'Hacker News', category: 'Tech', type: 'hn' },
     ],
 };
 
