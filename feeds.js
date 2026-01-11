@@ -3,10 +3,9 @@
 
 const SOURCES = {
     de: [
-        // 10/10 - Top German Sources
+        // 10/10 - Top German Sources - No Paywall
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://netzpolitik.org/feed/', source: 'Netzpolitik.org', category: 'Tech' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://geschichtedergegenwart.ch/feed/', source: 'Geschichte der Gegenwart', category: 'Geschichte' },
-        { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://uebermedien.de/feed/', source: 'Übermedien', category: 'Medienkritik' },
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://correctiv.org/feed/', source: 'Correctiv', category: 'Recherche' },
         // Swiss Sources - No Paywall
         { url: 'https://api.rss2json.com/v1/api.json?rss_url=https://www.infosperber.ch/feed/', source: 'Infosperber', category: 'Recherche' },
