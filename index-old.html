@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src * data: blob:; connect-src *; font-src 'self' https://fonts.gstatic.com; worker-src 'self';">
+    <meta name="referrer" content="no-referrer">
+    <title>Doom Hygiene – Mindful Scrolling</title>
+    <meta name="description" content="A mindful alternative to doomscrolling. Quality articles about philosophy, science, culture, and technology.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Verbesserter Startup-Loading-Screen -->
+    <div id="startup-loader" class="startup-loader">
+        <div class="startup-content">
+            <!-- Animated Logo -->
+            <div class="startup-logo-container">
+                <div class="logo-circle"></div>
+                <h1 class="startup-logo">🌿 Doom Hygiene</h1>
+            </div>
+            
+            <p class="startup-tagline">Scrollen mit Substanz</p>
+            
+            <!-- Progress Section -->
+            <div class="startup-progress">
+                <div class="progress-wrapper">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                        <div class="progress-shine"></div>
+                    </div>
+                    <span class="progress-percentage" id="progress-percentage">0%</span>
+                </div>
+                
+                <div class="status-info">
+                    <p class="startup-status" id="startup-status">
+                        <span class="status-icon">⚡</span>
+                        <span id="status-text">Bereitet Quellen vor...</span>
+                    </p>
+                    <p class="startup-details" id="startup-details">0 von 0 Quellen geladen</p>
+                </div>
+            </div>
+            
+            <!-- Loading Animation -->
+            <div class="loading-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            
+            <!-- Random Tips Carousel -->
+            <div class="startup-tips">
+                <div class="tip-container">
+                    <span class="tip-icon">💡</span>
+                    <p class="tip" id="loading-tip">Lädt kreative Inhalte...</p>
+                </div>
+            </div>
+            
+            <!-- Fun Facts während Laden -->
+            <div class="fun-fact" id="fun-fact">
+                <span class="fact-icon">✨</span>
+                <p id="fact-text"></p>
+            </div>
+        </div>
+        
+        <!-- Animated Background -->
+        <div class="bg-animation">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+    </div>
+
+    <!-- Main App (hidden during startup) -->
+    <div id="app-container" style="opacity: 0;">
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="branding">
+                    <h1 class="logo">Doom Hygiene</h1>
+                    <p class="tagline" data-i18n="tagline">Scroll with substance</p>
+                </div>
+                
+                <div class="language-selector">
+                    <label for="language" data-i18n="selectLanguage">Language:</label>
+                    <select id="language">
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="fr">Français</option>
+                        <option value="es">Español</option>
+                        <option value="it">Italiano</option>
+                        <option value="ja">日本語</option>
+                        <option value="ko">한국어</option>
+                        <option value="zh">中文</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="feed-container">
+        <div id="articles" class="articles-grid"></div>
+        <div id="loader" class="loader" style="display: none;">
+            <div class="spinner"></div>
+        </div>
+        <div id="end-message" class="end-message" style="display: none;" data-i18n="endOfFeed">
+            You've reached the end. Time to reflect.
+        </div>
+    </main>
+
+    <div id="bookmarks-panel" class="bookmarks-panel">
+        <div class="panel-header">
+            <h2 data-i18n="bookmarks">Bookmarks</h2>
+            <button id="close-bookmarks" class="close-btn">&times;</button>
+        </div>
+        <div id="bookmarks-list" class="bookmarks-list"></div>
+    </div>
+
+    <nav class="bottom-nav">
+        <button id="show-bookmarks" class="nav-btn" title="Bookmarks">
+            <span class="icon">🔖</span>
+            <span class="label" data-i18n="bookmarks">Bookmarks</span>
+            <span id="bookmark-count" class="count">0</span>
+        </button>
+    </nav>
+    </div>
+    <!-- End App Container -->
+
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+    <script src="config.js"></script>
+    <script src="i18n.js"></script>
+    <script src="storage.js"></script>
+    <script src="feeds.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
