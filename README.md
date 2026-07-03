@@ -203,6 +203,14 @@ Contributions sind willkommen!
 
 ---
 
+## 🎬 Character Asset Workflow (Tahoma2D)
+
+Für einen Tahoma2D-kompatiblen Character-Cutout-Workflow (separate PNG-Teile, Layer-Reihenfolge, Prompt-Templates, sichere Horror-Guidelines ohne explizite Gore-Darstellung):
+
+- Siehe `/docs/tahoma2d-geisha-workflow.md`
+
+---
+
 ## 📄 Lizenz
 
 MIT License – Frei nutzbar für persönliche und kommerzielle Zwecke.
